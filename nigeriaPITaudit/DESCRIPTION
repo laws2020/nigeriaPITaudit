@@ -1,0 +1,18 @@
+Package: nigeriaPITaudit
+Title: A Toolkit for Auditing Personal Income Tax in Nigeria
+Version: 0.0.1
+Authors@R: person("Lawrence", "Garba", email = "laws.garba@gmail.com", role = c("aut", "cre"))
+Description: nigeriaPITaudit provides tools for analyzing, auditing, and validating Personal Income Tax (PIT) data in Nigeria. It streamlines tax assessments, detects inconsistencies, and ensures compliance with Nigerian tax regulations..
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Imports: readxl, data.table
+Suggests: 
+    knitr,
+    rmarkdown,
+    writexl,
+    tufte,
+    testthat (>= 3.0.0)
+VignetteBuilder: knitr
+Config/testthat/edition: 3
