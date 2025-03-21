@@ -3,7 +3,7 @@
 A Comprehensive Toolkit for Auditing Personal Income Tax in Nigeria
 
 ## Overview
-nigeriaPITaudit is a powerful toolkit designed to assist tax auditors, accountants, and government agencies in auditing personal income tax (PIT) compliance in Nigeria. The package simplifies tax assessments, identifies discrepancies, and ensures compliance with Nigerian tax laws.
+nigeriaPITaudit is a powerful R toolkit designed to assist tax auditors, accountants, and government agencies in auditing personal income tax (PIT) compliance in Nigeria. The package simplifies tax assessments, identifies discrepancies, and ensures compliance with Nigerian tax laws.
 
 ## Features
 * Automated tax audit calculations based on Nigerian tax laws
