@@ -14,39 +14,39 @@ nigeriaPITaudit is a powerful toolkit designed to assist tax auditors, accountan
 ## Installation
 ### Install from GitHub
 r
-# Install devtools if not already installed
+## Install devtools if not already installed
 if (!requireNamespace("devtools", quietly = TRUE)) {
   install.packages("devtools")
 }
 
-# Install nigeriaPITaudit from GitHub
+## Install nigeriaPITaudit from GitHub
 devtools::install_github("laws2020/nigeriaPITaudit/nigeriaPITaudit")
 
 
 *Usage*
 *Load the package and use its functions for tax audits*
 
-# Load the nigeriaPITaudit package
+## Load the nigeriaPITaudit package
 library(nigeriaPITaudit)
 
-# Load sample tax data (replace with your own file path)
+## Load sample tax data (replace with your own file path)
 taxdata <- fetch_tax_data("path/to/your/tax/data.xlsx")
 
-# Extract relevant data frame
+## Extract relevant data frame
 df <- taxdata$`LIA TARABA 2017`
 
-# Convert necessary columns to correct types
+## Convert necessary columns to correct types
 df$`Name` <- as.character(df$`Name`)
 df$`Basic Salary` <- as.numeric(df$`Basic Salary`)
 df$`Teaching Allowance` <- as.numeric(df$`Teaching Allowance`)
 
-# Compute salary components (using key functions from nigeriaPITaudit)
+## Compute salary components (using key functions from nigeriaPITaudit)
 gross <- gross_salary(df$`Basic Salary`, df$`Teaching Allowance`)
 pension <- pension_deduction(gross)
 taxableIncome <- taxable_income(gross, pension)
 employeeLiability <- employee_tax_liability(taxableIncome, "monthly")
 
-# Create a summary data frame
+## Create a summary data frame
 dftaxreport <- data.frame(
   Name = df$`Name`,
   gross,
@@ -55,10 +55,10 @@ dftaxreport <- data.frame(
   employeeLiability
 )
 
-# View summary report
+## View summary report
 View(dftaxreport)
 
-# Save report to Excel file (optional)
+## Save report to Excel file (optional)
 library(writexl)
 write_xlsx(dftaxreport, "path/to/your/report.xlsx")
 
