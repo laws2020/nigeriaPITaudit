@@ -1,0 +1,134 @@
+---
+title: "Nigeria PIT Audit Guide"
+author: "Lawrence Daniel"
+date: "r Sys.Date()"
+output: 
+  tufte::tufte_html: default
+  rmarkdown::html_vignette: default
+vignette: >
+  %\VignetteIndexEntry{nigeriaPITaudit}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE, 
+  comment = "#>",
+  cache = TRUE,
+  cache.path = "cache/",
+  warning = FALSE,
+  message = FALSE,
+  echo = TRUE
+)
+```
+
+
+# Introduction
+The `nigeriaPITaudit` package is designed to assist in auditing, and it provides a suite of functions for computing various aspects of Nigeria's **Personal Income Tax (PIT)** in
+compliance with the **Finance Act 2020**. This vignette explains each function in detail with hands-on examples. It automates computations related to tax liability, reliefs, and penalties.
+
+## Installation Instructions
+## From CRAN (CRAN installation is not available yet)
+```{r}
+#install.packages("nigeriaPITaudit") 
+```
+## From GITHUB (available  on GITHUB for installation)
+Ensure you have devtools or remotes installed:
+```{r}
+#install.packages("devtools")  # Install devtools if not already installed
+#install.packages("remotes")  # Install remotes if you haven't
+#remotes::install_github("laws2020/nigeriaPITaudit")
+```
+
+## A Story of Compliance
+Meet Garba, a diligent Taraba Internal Revenue Service (TIRS) tax auditor. Garba has been tasked with conducting a Pay-As-You-Earn (PAYE) audit at **Infosights Consulting**, a software company in Jalingo, Nigeria.
+
+### _The Audit Begins_
+Garba arrives at *Infosights Consulting* on a sunny Monday morning with his audit checklist and a friendly smile. The company's accountant, Ms. Nyayokli, greets him.
+
+"Good morning, Garba. We've been expecting you. Please, come in."
+
+Garba begins by reviewing the company's payroll records, searching for discrepancies or anomalies.
+
+### _Employee Encounters_
+As Garba works, he is approached by several employees with questions and concerns about their tax deductions.
+
+### Ms. Francisca, the HR Manager
+"Excuse me, Garba. I hope you can help me clarify something. One of our employees, Mr. Ademola, has been complaining about his tax deductions. He says he's being over-taxed. Can you explain how the tax deductions work?"
+
+Garba sits down with the company's accountant, HR Manager, Ms. Nyayokli, and Ms. Francisca respectively, and begins to review the salary components of one of the employees, Mr. Ademola.
+
+### _Step 1: Gross Salary_
+"Let's start with Mr. Ademola's gross salary," Garba says. We'll use the `gross_salary()` function from the **_nigeriaPITaudit package_** to calculate this."
+
+<span class="marginnote">_**Gross salary**_ refers to the total earnings (e.g., basic salary, allowances, bonuses, overtime pay, etc.) from employment. 
+
+Garba opens his R console and loads the nigeriaPITaudit package.
+Ms. Nyayokli, your record shows that Mr. Ademola has an annual basic salary of 500000, allowances of 150000, and bonuses of 200000. Is there any other item that is not included, such as overtime pay? Just to be sure about what was not included. 
+
+Ms. Nyayokli: "His salary last year did not include overtime pay."
+Garba: "Okay, let's see then what his total gross salary is."
+
+```{r, warning=FALSE, message=FALSE}
+library(nigeriaPITaudit)
+gross <- gross_salary(basic_salary = 500000, allowances = 150000, bonuses = 200000)
+print(noquote(format(gross, big.mark = ",", scientific = FALSE)))
+```
+
+### _Step 2: Tax Exemptions_
+"Next, we'll calculate Mr. Ademola's tax exemptions," Garba says. "These include pension deduction, NHF deduction, and NHIS deduction." Does Ademola contribute to that? 
+
+<span class="marginnote"> Section 3(1): An employee shall, for the purpose of pension contributions, have a pensionable salary, which is determined by his basic salary and may include any other emolument or allowance as agreed between the employer and employee, as stipulated in the employer’s policy.
+
+```{r}
+pension <- pension_deduction(gross, rate = 0.08)
+nhf <- nhf_deduction(gross, rate = 0.025)
+nhis <- nhis_deduction(gross, rate = 0.05)
+
+list(
+  Pension = noquote(format(pension, big.mark = ",", scientific = FALSE)),
+  nhf = noquote(format(nhf, big.mark = ",", scientific = FALSE)),
+  bhis = noquote(format(nhis, big.mark = ",", scientific = FALSE))
+)
+```
+
+### _Step 3: Gross Income_
+"Now, we'll calculate Mr. Ademola's gross income by subtracting his tax exemptions from his gross salary," Garba explains.
+
+```{r}
+grossIncome <- gross_income(gross, pension, nhf, nhis)
+print(noquote(format(grossIncome, big.mark = ",", scientific = FALSE)))
+```
+
+### _Step 4: Consolidated Relief_
+"Next, we'll calculate Mr. Ademola's consolidated relief," Garba says. "This is based on his gross income."
+
+CRA is calculated as:
+
+```{r}
+consolidatedRelief <- consolidated_relief(grossIncome)
+print(noquote(format(consolidatedRelief, big.mark = ",", scientific = FALSE)))
+```
+
+### _Step 5: Total Relief_
+"Now, we'll calculate Mr. Ademola's total relief by adding his consolidated relief to his tax exemptions," Garba explains.
+
+```{r}
+totalRelief <- total_relief(consolidatedRelief, pension, nhf, nhis)
+print(noquote(format(totalRelief, big.mark = ",", scientific = FALSE)))
+```
+
+### _Step 6: Taxable Income_
+"Finally, we'll calculate Mr. Ademola's taxable income by subtracting his total relief from his gross salary," Garba says.
+
+```{r}
+taxableIncome <- taxable_income(gross, totalRelief)
+print(noquote(format(taxableIncome, big.mark = ",", scientific = FALSE)))
+```
+
+### _Step 7: Tax Calculation_
+```{r}
+employeeLiability <- employee_tax_liability(taxableIncome)
+print(noquote(format(employeeLiability, big.mark = ", ", scientific = FALSE)))
+```
