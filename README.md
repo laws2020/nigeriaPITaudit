@@ -58,7 +58,7 @@ dftaxreport <- data.frame(
 ## View summary report
 View(dftaxreport)
 
-## Save report to Excel file (optional)
+## Save report to Excel file 
 library(writexl)
 write_xlsx(dftaxreport, "path/to/your/report.xlsx")
 
