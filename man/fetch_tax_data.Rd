@@ -2,7 +2,7 @@
 % Please edit documentation in R/utility.R
 \name{fetch_tax_data}
 \alias{fetch_tax_data}
-\title{fect and Clean Multiple Sheets from an Excel File}
+\title{fetch and Clean Multiple Sheets from an Excel File}
 \usage{
 fetch_tax_data(infile)
 }

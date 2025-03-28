@@ -61,14 +61,14 @@ consolidated_relief <- function(gross_income, period = "yearly") {
   base_relief_yearly <- 200000
   base_relief_monthly <- base_relief_yearly / 12  # ₦16,666.67
 
-  # Determine base relief based on period
+  # Compute relief based on period
   if (period == "yearly") {
     relief <- ifelse(0.01 * gross_income > base_relief_yearly,
-                     0.01 * gross_income + (0.2 * gross_income),
+                     (0.01 * gross_income) + (0.2 * gross_income),
                      base_relief_yearly + (0.2 * gross_income))
   } else if (period == "monthly") {
     relief <- ifelse(0.01 * gross_income > base_relief_monthly,
-                     0.01 * gross_income + (0.2 * gross_income),
+                     (0.01 * gross_income) + (0.2 * gross_income),
                      base_relief_monthly + (0.2 * gross_income))
   } else {
     stop("Invalid period. Choose either 'yearly' or 'monthly'.")
