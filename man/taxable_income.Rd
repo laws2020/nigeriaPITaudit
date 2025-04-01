@@ -4,15 +4,15 @@
 \alias{taxable_income}
 \title{Taxable Income}
 \usage{
-taxable_income(gross_emolument, total_relief)
+taxable_income(gross_salary, total_relief)
 }
 \arguments{
-\item{gross_emolument}{Numeric. The total earnings before deductions.}
+\item{gross_salary}{Numeric. The total earnings before deductions computed by \code{gross_salary()}.}
 
 \item{total_relief}{Numeric. The aggregate relief computed by \code{total_relief()}.}
 }
 \value{
-A numeric value representing the taxable income. If deductions exceed gross emolument, the result is 0.
+A numeric value representing the taxable income. If deductions exceed gross salary, the result is 0.
 }
 \description{
 This \code{taxable_income()} function calculates the \strong{Taxable Income} by subtracting the total relief from the gross emolument.

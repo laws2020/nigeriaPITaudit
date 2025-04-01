@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Data in nigeriaPITaudit package | The nigeriaPITaudit Story: Creating an R Package</title>
+  <meta name="description" content="Chapter 2 Data in nigeriaPITaudit package | The nigeriaPITaudit Story: Creating an R Package" />
+  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Data in nigeriaPITaudit package | The nigeriaPITaudit Story: Creating an R Package" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Data in nigeriaPITaudit package | The nigeriaPITaudit Story: Creating an R Package" />
+  
+  
+  
+
+<meta name="author" content="Lawrence Daniel Garba" />
+
+
+<meta name="date" content="2025-03-31" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="data-in-nigeriapitaudit-package.html"><a href="data-in-nigeriapitaudit-package.html"><i class="fa fa-check"></i><b>2</b> Data in nigeriaPITaudit package</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="data-in-nigeriapitaudit-package.html"><a href="data-in-nigeriapitaudit-package.html#what-is-a-dataset-in-an-r-package"><i class="fa fa-check"></i><b>2.1</b> What is a dataset in an R package?</a></li>
+<li class="chapter" data-level="2.2" data-path="data-in-nigeriapitaudit-package.html"><a href="data-in-nigeriapitaudit-package.html#why-include-a-dataset-in-r-packages"><i class="fa fa-check"></i><b>2.2</b> Why include a dataset in R packages?</a></li>
+<li class="chapter" data-level="2.3" data-path="data-in-nigeriapitaudit-package.html"><a href="data-in-nigeriapitaudit-package.html#storage-and-access-in-an-r-package"><i class="fa fa-check"></i><b>2.3</b> Storage and Access in an R Package</a></li>
+<li class="chapter" data-level="2.4" data-path="data-in-nigeriapitaudit-package.html"><a href="data-in-nigeriapitaudit-package.html#methods-for-adding-data-to-an-r-package"><i class="fa fa-check"></i><b>2.4</b> Methods for Adding Data to an R Package</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="data-in-nigeriapitaudit-package.html"><a href="data-in-nigeriapitaudit-package.html#local-files-into-data"><i class="fa fa-check"></i><b>2.4.1</b> Local Files into data/</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The nigeriaPITaudit Story: Creating an R Package</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="data-in-nigeriapitaudit-package" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Chapter 2</span> Data in nigeriaPITaudit package<a href="data-in-nigeriapitaudit-package.html#data-in-nigeriapitaudit-package" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Including a dataset in your R package can be essential for running examples. In some cases, your package may rely on a specific dataset to function correctly. The method you choose to add the dataset depends on how you plan to use it. In an R package, datasets may also need to follow a specific format.</p>
+<div id="what-is-a-dataset-in-an-r-package" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> What is a dataset in an R package?<a href="data-in-nigeriapitaudit-package.html#what-is-a-dataset-in-an-r-package" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A dataset is a collection of information, like numbers or words, stored in R. It can be a list, table, or just a set of values that we can use in R programs.</p>
+</div>
+<div id="why-include-a-dataset-in-r-packages" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Why include a dataset in R packages?<a href="data-in-nigeriapitaudit-package.html#why-include-a-dataset-in-r-packages" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We include datasets in R packages so that users can easily access and use them without searching for or creating their own data. It makes learning and analysis faster.</p>
+</div>
+<div id="storage-and-access-in-an-r-package" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Storage and Access in an R Package<a href="data-in-nigeriapitaudit-package.html#storage-and-access-in-an-r-package" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>R packages offer different storage locations for datasets, balancing usability, efficiency, and security. Some datasets are publicly accessible, making them easy to load and use, while others are stored in restricted locations to protect their integrity and optimize package performance.</p>
+</div>
+<div id="methods-for-adding-data-to-an-r-package" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Methods for Adding Data to an R Package<a href="data-in-nigeriapitaudit-package.html#methods-for-adding-data-to-an-r-package" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The method for adding data to an R package depends on its source. If the dataset is local (already on your computer), it can be directly included in the package. If it needs to be downloaded from an online source, additional steps may be required to ensure proper integration.</p>
+<div id="local-files-into-data" class="section level3 hasAnchor" number="2.4.1">
+<h3><span class="header-section-number">2.4.1</span> Local Files into data/<a href="data-in-nigeriapitaudit-package.html#local-files-into-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>If you already have a dataset on your computer (e.g., fmc2017.xlsx), you need to locate the 6existing data file and load the data into R</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="data-in-nigeriapitaudit-package.html#cb1-1" tabindex="-1"></a>fmc2017 <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">&quot;C:/Users/Lawrence Daniel/Downloads/fmc2017.xlsx&quot;</span>, <span class="at">sheet =</span> <span class="dv">1</span>)</span>
+<span id="cb1-2"><a href="data-in-nigeriapitaudit-package.html#cb1-2" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_data</span>(fmc2017, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p>The file is inside the downloads folder, and username Lawrence Daniel on a window system. We use the package readxl to read Excel files, using the read_excel() function to open and loads the contents of the first sheet of the Excel file into R.</p>
+<p>The second line saves the fmc2017 dataset inside the data/ folder of nigeriaPITaudit R package. This makes it an internal dataset that package users can easily load. The overwrite = TRUE, implies that if the dataset named fmc2017 already exists, this option replaces it with the new version.</p>
+<p>In addition, the second line of codes, automatically creates the data/ directory if it doesn’t exist. Saves the dataset fmc2017 as an .rda file inside data/.</p>
+<p>You can also create a directory before saving the dataset by using</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="data-in-nigeriapitaudit-package.html#cb2-1" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">&quot;data&quot;</span>, <span class="at">showWarnings =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-2"><a href="data-in-nigeriapitaudit-package.html#cb2-2" tabindex="-1"></a><span class="fu">file.copy</span>(<span class="st">&quot;C:/Users/Lawrence Daniel/Downloads/fmc2017.xlsx&quot;</span>,<span class="st">&quot;data/fmc2017.xlsx&quot;</span>, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p>the argument overwrite = TRUE is used when you want to update or replace an existing dataset in data/
+you need to document the dataset, create a new file inside R/directory</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="data-in-nigeriapitaudit-package.html#cb3-1" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_r</span>(“fmc2017”).</span></code></pre></div>
+<p>Check if the data is properly stored in the package
+It is also important to check if the data was correctly save</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="data-in-nigeriapitaudit-package.html#cb4-1" tabindex="-1"></a><span class="fu">data</span>(<span class="at">package=</span><span class="st">&quot;nigeriaPITaudit&quot;</span>)</span>
+<span id="cb4-2"><a href="data-in-nigeriapitaudit-package.html#cb4-2" tabindex="-1"></a><span class="fu">list.files</span>(<span class="st">&quot;data&quot;</span>)</span></code></pre></div>
+<p>you are expected to see fmc2017.rda
+re-run in a clean environment</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="data-in-nigeriapitaudit-package.html#cb5-1" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">check</span>(<span class="at">clean =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p>this ensures that the package is checked for any issue before submission to CRAN. It removes any previous check result and temporary files, providing a fresh start.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="data-in-nigeriapitaudit-package.html#cb6-1" tabindex="-1"></a><span class="co">#load and use the data in the package</span></span>
+<span id="cb6-2"><a href="data-in-nigeriapitaudit-package.html#cb6-2" tabindex="-1"></a><span class="fu">library</span>(nigeriaPITaudit)</span>
+<span id="cb6-3"><a href="data-in-nigeriapitaudit-package.html#cb6-3" tabindex="-1"></a><span class="fu">data</span>(“fmc2017”)</span>
+<span id="cb6-4"><a href="data-in-nigeriapitaudit-package.html#cb6-4" tabindex="-1"></a><span class="fu">print</span>(fmc2017)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="data-in-nigeriapitaudit-package.html#cb7-1" tabindex="-1"></a>build and install the package.</span>
+<span id="cb7-2"><a href="data-in-nigeriapitaudit-package.html#cb7-2" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">document</span>()</span>
+<span id="cb7-3"><a href="data-in-nigeriapitaudit-package.html#cb7-3" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install</span>()</span>
+<span id="cb7-4"><a href="data-in-nigeriapitaudit-package.html#cb7-4" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">load_all</span>()</span></code></pre></div>
+
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+</body>
+
+</html>

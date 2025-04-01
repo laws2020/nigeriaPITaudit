@@ -1,0 +1,7 @@
+introduction
+data-in-nigeriapitaudit-package
+what-is-a-dataset-in-an-r-package
+why-include-a-dataset-in-r-packages
+storage-and-access-in-an-r-package
+methods-for-adding-data-to-an-r-package
+local-files-into-data

@@ -1,0 +1,74 @@
+# Data in nigeriaPITaudit package
+
+Including a dataset in your R package can be essential for running examples. In some cases, your package may rely on a specific dataset to function correctly. The method you choose to add the dataset depends on how you plan to use it. In an R package, datasets may also need to follow a specific format.
+
+## What is a dataset in an R package?
+A dataset is a collection of information, like numbers or words, stored in R. It can be a list, table, or just a set of values that we can use in R programs.
+
+## Why include a dataset in R packages?
+We include datasets in R packages so that users can easily access and use them without searching for or creating their own data. It makes learning and analysis faster.
+
+## Storage and Access in an R Package
+R packages offer different storage locations for datasets, balancing usability, efficiency, and security. Some datasets are publicly accessible, making them easy to load and use, while others are stored in restricted locations to protect their integrity and optimize package performance.
+
+
+## Methods for Adding Data to an R Package
+The method for adding data to an R package depends on its source. If the dataset is local (already on your computer), it can be directly included in the package. If it needs to be downloaded from an online source, additional steps may be required to ensure proper integration.
+
+### Local Files into data/
+If you already have a dataset on your computer (e.g., fmc2017.xlsx), you need to locate the 6existing data file and load the data into R
+
+```r
+fmc2017 <- readxl::read_excel("C:/Users/Lawrence Daniel/Downloads/fmc2017.xlsx", sheet = 1)
+usethis::use_data(fmc2017, overwrite = TRUE)
+```
+The file is inside the downloads folder, and username Lawrence Daniel on a window system. We use the package readxl to read Excel files, using the read_excel() function to open and loads the contents of the first sheet of the Excel file into R.
+
+The second line saves the fmc2017 dataset inside the data/ folder of nigeriaPITaudit R package. This makes it an internal dataset that package users can easily load.  The argument overwrite = TRUE, implies that if the dataset named fmc2017 already exists, this option replaces it with the new version.
+
+In addition, the second line of codes, automatically creates the data/ directory if it doesn’t exist. Saves the dataset fmc2017 as an .rda file inside data/.  
+
+You can also create a directory before saving the dataset by using 
+
+```r
+dir.create("data", showWarnings = FALSE)
+file.copy("C:/Users/Lawrence Daniel/Downloads/fmc2017.xlsx","data/fmc2017.xlsx", overwrite = TRUE)
+```
+Then next step is for us is to document the dataset, create a new file inside R/directory 
+
+
+```r
+usethis::use_r(“fmc2017”).
+```
+
+Check if the data is properly stored in the package 
+It is also important to check if the data was correctly save
+
+```r
+data(package="nigeriaPITaudit")
+list.files("data")
+```
+
+you are expected to see fmc2017.rda 
+re-run in a clean environment 
+
+```r
+devtools::check(clean = TRUE)
+```
+
+this ensures that the package is checked for any issue before submission to CRAN. It removes any previous check result and temporary files, providing a fresh start. 
+
+```r
+#load and use the data in the package
+library(nigeriaPITaudit)
+data(“fmc2017”)
+print(fmc2017)
+```
+
+```r
+build and install the package.
+devtools::document()
+devtools::install()
+devtools::load_all()
+```
+

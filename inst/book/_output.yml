@@ -1,0 +1,6 @@
+bookdown::gitbook:
+  css: style.css
+  split_by: chapter
+bookdown::pdf_book:
+  keep_tex: yes
+bookdown::word_document2: default
