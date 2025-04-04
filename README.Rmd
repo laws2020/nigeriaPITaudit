@@ -2,15 +2,15 @@
 output: github_document
 ---
 
-# **nigeriaPITaudit**  
+## **nigeriaPITaudit**  
 ![GitHub](https://img.shields.io/github/license/laws2020/nigeriaPITaudit)  
 
-### A Comprehensive Toolkit for Auditing Personal Income Tax in Nigeria  
+#### A Comprehensive Toolkit for Auditing Personal Income Tax in Nigeria  
 
-## **Overview**
+### **Overview**
 `nigeriaPITaudit` is an R package designed to streamline the auditing of personal income tax (PIT) in Nigeria. It assists tax auditors, accountants, and government agencies in evaluating tax compliance, identifying discrepancies, and ensuring adherence to Nigerian tax laws.
 
-## **Features**
+### **Features**
 ✔ Automated tax audit calculations based on Nigerian tax regulations  
 ✔ Data validation for tax records  
 ✔ Analysis of taxable income, deductions, and exemptions  
@@ -18,12 +18,12 @@ output: github_document
 
 ---
 
-## **Installation**  
+### **Installation**  
 
-### **Prerequisites**  
+#### **Prerequisites**  
 Ensure that R (version 4.0 or higher) and RStudio are installed.
 
-### **Step 1: Install `devtools` (if not already installed)**  
+#### **Step 1: Install `devtools` (if not already installed)**  
 ```{r}
 if (!requireNamespace("devtools", quietly = TRUE)) {
   install.packages("devtools")
@@ -33,14 +33,14 @@ if (!requireNamespace("devtools", quietly = TRUE)) {
 
 ### Install nigeriaPITaudit from GitHub
 ```{r}
-devtools::install_github("laws2020/nigeriaPITaudit/nigeriaPITaudit")
+# devtools::install_github("laws2020/nigeriaPITaudit/nigeriaPITaudit")
 
 ```
 
 
-# The Birth of `nigeriaPITaudit`
+## The Birth of `nigeriaPITaudit`
 
-## Chapter 1: A Journey Through Time
+### Chapter 1: A Journey Through Time
 
 Five years ago, I worked in the auditing department with the **Internal Revenue Service (IRS)**. My main responsibility was conducting **payroll audits**—a task that required patience, accuracy, and mastery of financial tools.
 
@@ -53,7 +53,7 @@ However, despite all my efforts, I still found myself handling **two roles**—w
 Their unwillingness to learn **pushed me to create something greater, but more easier to excel**. I wanted to empower them and others like them to perform payroll audits with ease. And so, the **`nigeriaPITaudit`** package was born—a tool designed to simplify payroll auditing in R!
 
 
-## Chapter 2: Unlocking Payroll Secrets with `nigeriaPITaudit`
+### Chapter 2: Unveiling Payroll Secrets with `nigeriaPITaudit`
 
 To embark on this journey, first, we must summon the power of nigeriaPITaudit package:
 
@@ -64,7 +64,7 @@ library(knitr)
 ```
 
 
-### Unveiling the Payroll Data
+###  Here comes the Payroll Data
 
 We retrieve the payroll data hidden in the nigeriaPITaudit archives:
 
@@ -86,6 +86,14 @@ We now store it in a **data frame** for easy manipulation:
 df <- fmc2017
 
 ```
+
+For the purpose of this examples we will like to limit the number of employee to audit, just 8 instead of the entire data we have here.
+
+```{r}
+df <- fmc2017[c(1:8), ]
+
+```
+
 
 ### Calculating Salary Components
 
@@ -141,7 +149,7 @@ employeeLiability <- employee_tax_liability(taxableIncome, "monthly")
 ```
 
 
-## Chapter 3: The Final Report
+### Chapter 3: The Final Report
 
 With all calculations complete, we compile a **comprehensive payroll tax report**:
 
@@ -156,25 +164,23 @@ dftaxreport <- data.frame(
 
 ```{r}
 columns_to_sum <- c("gross", "pension", "nhis", "nhf", "grossIncome", "consolidatedRelief", "totalRelief", "taxableIncome", "employeeLiability")
+
 ```
 
 ```{r}
 result <- sum_cols(dftaxreport, columns_to_sum)
+
 ```
 
-To summarize only the **first five and last five** records:
-
+To summarize records:
 
 ```{r}
-library(knitr)
+kable(result, caption = "Summary of Personal Income Tax Audit")
 
-summary_result <- rbind(head(result, 5), tail(result, 5))
-
-kable(summary_result, caption = "Summary of Personal Income Tax Audit")
 ```
 
 
-## Chapter 4: Preserving the Knowledge
+### Chapter 4: Preserving the Knowledge
 
 To ensure that our findings remain accessible, we store the results in an **Excel file**:
 
@@ -185,6 +191,39 @@ write_xlsx(summary_result, "C:/Users/Lawrence Daniel/Downloads/practiceAudit.xls
 ```
 
 And so, my journey from **IRS auditor** to **R package developer** comes full circle. With `nigeriaPITaudit`, anyone can now conduct payroll audits effortlessly.
+
+### cheat sheet 
+
+_consolidated_relief(gross_income, period = "yearly")_
+
+_employee_tax_liability(taxable_income, period = "yearly")_
+
+_fetch_tax_data(infile)_
+
+_gross_income(gross_salary, pension, nhis, nhf)_
+
+_gross_salary(...)_
+
+_nhf_deduction(gross_salary, rate = 0.025)_
+
+_nhis_deduction(gross_salary, rate = 0.05)_
+
+_outstanding_liability(actual_employeeLiability, payment_made)_
+
+_penalty_and_interest(unpaid_tax, due_date, payment_date, employer_type = "corporate")_
+
+_pension_deduction(gross_salary, rate = 0.08)_
+
+_rent_relief(rent_paid)_
+
+_sum_cols(df, cols_to_sum)_
+
+_taxable_income(gross_salary, total_relief)_
+
+_tax_exemption(gross_salary, rate)_
+
+_total_relief(cra_value, pension, nhf, nhis)_
+
 
 This package is not just a tool—it’s my way of ensuring that **learning and self-sufficiency triumph over dependency**.
 

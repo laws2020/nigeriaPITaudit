@@ -1,3 +1,4 @@
+
 # Data in nigeriaPITaudit package
 
 Including a dataset in your R package can be essential for running examples. In some cases, your package may rely on a specific dataset to function correctly. The method you choose to add the dataset depends on how you plan to use it. In an R package, datasets may also need to follow a specific format.

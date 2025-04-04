@@ -1,7 +1,7 @@
 ---
 title: "Nigeria PIT Audit Guide"
 author: "Lawrence Daniel"
-date: "r Sys.Date()"
+date: "`r Sys.Date()`"
 output: 
   tufte::tufte_html: default
   rmarkdown::html_vignette: default
