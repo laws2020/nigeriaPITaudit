@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 Preparing Your Datasets for an R Package | The nigeriaPITaudit Story: Creating an R Package</title>
+  <meta name="description" content="Chapter 4 Preparing Your Datasets for an R Package | The nigeriaPITaudit Story: Creating an R Package" />
+  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 Preparing Your Datasets for an R Package | The nigeriaPITaudit Story: Creating an R Package" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 Preparing Your Datasets for an R Package | The nigeriaPITaudit Story: Creating an R Package" />
+  
+  
+  
+
+<meta name="author" content="Lawrence Daniel Garba" />
+
+
+<meta name="date" content="2025-04-07" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="tools-for-managing-datasets-for-an-r-package.html"/>
+<link rel="next" href="adding-datasets-to-an-r-package.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="data-in-the-nigeriapitaudit-package.html"><a href="data-in-the-nigeriapitaudit-package.html"><i class="fa fa-check"></i><b>2</b> Data in the nigeriaPITaudit Package</a></li>
+<li class="chapter" data-level="3" data-path="tools-for-managing-datasets-for-an-r-package.html"><a href="tools-for-managing-datasets-for-an-r-package.html"><i class="fa fa-check"></i><b>3</b> Tools for Managing Datasets for an R Package</a></li>
+<li class="chapter" data-level="4" data-path="preparing-your-datasets-for-an-r-package.html"><a href="preparing-your-datasets-for-an-r-package.html"><i class="fa fa-check"></i><b>4</b> Preparing Your Datasets for an R Package</a></li>
+<li class="chapter" data-level="5" data-path="adding-datasets-to-an-r-package.html"><a href="adding-datasets-to-an-r-package.html"><i class="fa fa-check"></i><b>5</b> Adding Datasets to an R Package</a></li>
+<li class="chapter" data-level="6" data-path="documenting-your-datasets.html"><a href="documenting-your-datasets.html"><i class="fa fa-check"></i><b>6</b> Documenting your Datasets</a></li>
+<li class="chapter" data-level="7" data-path="best-practices-for-including-datasets-in-r-packages.html"><a href="best-practices-for-including-datasets-in-r-packages.html"><i class="fa fa-check"></i><b>7</b> Best Practices for Including Datasets in R Packages</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The nigeriaPITaudit Story: Creating an R Package</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="preparing-your-datasets-for-an-r-package" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Preparing Your Datasets for an R Package<a href="preparing-your-datasets-for-an-r-package.html#preparing-your-datasets-for-an-r-package" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Preparing datasets for inclusion in an R package is a critical process. In this chapter, we will walk through the key steps involved in preparing your datasets, from initial selection to choosing the right format. Each section will detail best practices, tools, and methods for ensuring your datasets are ready for efficient use and integration.</p>
+<p><strong>3.1 Selecting a Suitable Dataset</strong></p>
+<p>Selecting an appropriate dataset is the first and most important step in preparing data for an R package. A good dataset should meet several criteria, ensuring that it adds value to your package without overwhelming users or introducing complications.</p>
+<p><strong>1. What Makes a Dataset Suitable for Packaging?</strong></p>
+<p>• Ethical Considerations: Ensure that the dataset complies with licensing laws and does not include personally identifiable information (PII) unless it has been anonymized. It should also adhere to any legal or ethical restrictions related to its usage.</p>
+<p>• Licensing: The dataset should be released under a license that allows for redistribution, modification, and use. Be clear about the dataset’s license in your package documentation.</p>
+<p>• Relevance and Completeness: The dataset should be relevant to your package’s functionality, providing valuable insights or data for users. It must also be comprehensive enough to support real-world applications.</p>
+<p>• Size: Ideally, the dataset should not be too large. Large datasets can cause issues with memory usage, loading times, and the overall performance of the package. Keep it as small as possible while still being useful.</p>
+<p>• Examples of Good vs. Bad Candidates for Packaging:</p>
+<p>o Good: A small, cleaned, well-documented dataset of economic indicators for a financial analysis package.</p>
+<p>o Bad: A large dataset containing raw, messy data that requires significant cleaning and is difficult to manage.</p>
+<p><strong>3.2 Exploring the Dataset</strong></p>
+<p>Before cleaning and preprocessing, it is essential to explore the dataset in detail. This helps to understand its structure, variables, and potential issues.</p>
+<p><strong>1. Initial Exploration: Structure, Variables, Data Types</strong></p>
+<p>• Structure: Use functions like str() to inspect the structure of your dataset. This will provide information on the number of rows, columns, and the type of each variable.</p>
+<p>• Variables and Data Types: Ensure you know what each variable represents and its appropriate type (e.g., numeric, factor, or character).</p>
+<p><strong>2. Summary Statistics and Visual Inspection</strong></p>
+<p>• Summary Statistics: Functions like summary() provide an overview of the distribution of each variable, including central tendencies and missing values.</p>
+<p>• Visual Inspection: Use visual tools (e.g., ggplot2 or plotly) to detect patterns, outliers, or any data inconsistencies.</p>
+<p><strong>3. Tools for Dataset Exploration:</strong></p>
+<p>• skimr::skim(): This function provides a summary of all columns with extended statistics, including min, max, and NA counts.</p>
+<p>• glimpse(): A function from the dplyr package, giving a quick look at the dataset’s structure and data types.</p>
+<p><strong>3.3 Cleaning and Preprocessing the Data</strong></p>
+<p>Once you understand the dataset, the next step is cleaning and preprocessing it. Cleaning data ensures that it is consistent, usable, and ready for analysis or inclusion in your package.</p>
+<p><strong>1. Handling Missing Values</strong></p>
+<p>• Remove Missing Values: Use na.omit() or drop_na() (from tidyverse) to eliminate rows with missing values.</p>
+<p>• Impute Missing Values: In some cases, imputing missing values may be necessary. This can be done by replacing missing values with the mean, median, or a prediction model.</p>
+<p><strong>2. Renaming Variables</strong></p>
+<p>• Clear and consistent variable names are crucial. Use dplyr::rename() to give variables meaningful names that align with the purpose of the dataset.</p>
+<p><strong>3. Recoding Factors</strong></p>
+<p>• If your dataset includes categorical variables, use factor() to ensure they are appropriately coded.</p>
+<p>• Recoding might also involve converting levels of factors, or transforming variables into more meaningful groups using dplyr::mutate().</p>
+<p><strong>4. Normalizing Formats</strong></p>
+<p>• Ensure consistency across the dataset. For example, make sure all dates are in the same format, all text is lowercase, and numeric variables are in a standardized format.</p>
+<ol start="5" style="list-style-type: decimal">
+<li>Example Cleaning Pipelines:</li>
+</ol>
+<p>• Using dplyr:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="preparing-your-datasets-for-an-r-package.html#cb13-1" tabindex="-1"></a>    cleaned_data <span class="ot">&lt;-</span> raw_data <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="preparing-your-datasets-for-an-r-package.html#cb13-2" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">age =</span> <span class="fu">ifelse</span>(age <span class="sc">&lt;</span> <span class="dv">18</span>, <span class="cn">NA</span>, age)) <span class="sc">%&gt;%</span></span>
+<span id="cb13-3"><a href="preparing-your-datasets-for-an-r-package.html#cb13-3" tabindex="-1"></a>      <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(age)) <span class="sc">%&gt;%</span></span>
+<span id="cb13-4"><a href="preparing-your-datasets-for-an-r-package.html#cb13-4" tabindex="-1"></a>      <span class="fu">rename</span>(<span class="at">income =</span> salary)</span></code></pre></div>
+<p>• Using data.table:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="preparing-your-datasets-for-an-r-package.html#cb14-1" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb14-2"><a href="preparing-your-datasets-for-an-r-package.html#cb14-2" tabindex="-1"></a>raw_data <span class="ot">&lt;-</span> <span class="fu">as.data.table</span>(raw_data)</span>
+<span id="cb14-3"><a href="preparing-your-datasets-for-an-r-package.html#cb14-3" tabindex="-1"></a>raw_data[age <span class="sc">&lt;</span> <span class="dv">18</span>, age <span class="sc">:=</span> <span class="cn">NA</span>]</span>
+<span id="cb14-4"><a href="preparing-your-datasets-for-an-r-package.html#cb14-4" tabindex="-1"></a>raw_data <span class="ot">&lt;-</span> raw_data[<span class="sc">!</span><span class="fu">is.na</span>(age)]</span>
+<span id="cb14-5"><a href="preparing-your-datasets-for-an-r-package.html#cb14-5" tabindex="-1"></a><span class="fu">setnames</span>(raw_data, <span class="st">&quot;salary&quot;</span>, <span class="st">&quot;income&quot;</span>)</span></code></pre></div>
+<p><strong>3.4 Choosing the Right Data Format</strong></p>
+<p>After cleaning, the next consideration is the format in which you will save your dataset. The right format depends on factors like file size, loading times, and the types of operations you’ll be performing.</p>
+<p><strong>1. Comparison: .csv vs .rds vs .RData vs .feather</strong></p>
+<p>• CSV: Human-readable, but inefficient for large datasets. It also doesn’t preserve R-specific attributes.</p>
+<p>• RDS: Preserves the full structure of R objects, including factors and dates. Ideal for saving single objects.</p>
+<p>• RData: Suitable for saving multiple R objects, but less efficient when working with single datasets.</p>
+<p>• Feather: A fast binary format that is compatible with both R and Python, great for sharing data across languages.</p>
+<p><strong>2. Tibble vs. Data Frame vs. Data Table:</strong></p>
+<p>• Tibble: A modern alternative to data.frame. It does not convert strings to factors by default, which is useful for data integrity.</p>
+<p>• Data Frame: The standard R object for storing tabular data.</p>
+<p>• Data Table: An extension of data.frame optimized for large datasets, with improved performance in data manipulation.</p>
+<p><strong>3. Recommended Format for Package Datasets: .rda</strong></p>
+<p>• The most efficient and preferred format for saving datasets in an R package is .rda. Use devtools::use_data() to save datasets in this format, which is both compressed and fast to load.</p>
+<p><strong>3.5 Managing Dataset Size and Compression</strong></p>
+<p>Large datasets can increase the size of your R package and hinder performance. Here are some techniques to efficiently manage dataset size and ensure optimal performance:</p>
+<p><strong>1. Compressing Datasets</strong></p>
+<p>• Use the compress argument in devtools::use_data() to save datasets in compressed format. The xz compression method is highly efficient.</p>
+<p><strong>2. Stripping Environments</strong></p>
+<p>• Ensure that you strip unnecessary environments from your R objects before saving them. Use tools::resaveRdaFiles() to remove extra data and reduce file size.</p>
+<p><strong>3. Tools for Checking and Compressing R Objects</strong></p>
+<p>• tools::checkRdaFiles(): Validates RData files and ensures they can be loaded without errors.</p>
+<p>• tools::resaveRdaFiles(): Resaves .rda files with compression to minimize file sizes.</p>
+<p><strong>4. Converting from CSV to .rda Efficiently</strong></p>
+<p>• Convert large CSV files to .rda format using R’s read.csv() or readr::read_csv(), then save them in .rda format using devtools::use_data().</p>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="tools-for-managing-datasets-for-an-r-package.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="adding-datasets-to-an-r-package.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+</body>
+
+</html>

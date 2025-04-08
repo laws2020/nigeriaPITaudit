@@ -14,7 +14,7 @@
 #'   \item{other_allowances}{Numeric. Additional allowances.}
 #'   \item{Overtime}{Numeric. Overtime payment.}
 #'   \item{Shifting}{Numeric. Shift-related payments.}
-#'   \item{Speacilist}{Numeric. Extra pay for specialist work.}  # Check if spelling is intentional
+#'   \item{Specailist}{Numeric. Extra pay for specialist work.}
 #'   \item{Hazard_Allowance}{Numeric. Extra pay for hazardous work.}
 #'   \item{S/N}{Numeric. Serial number of employee record.}
 #'   \item{Netpay}{Numeric. Employee's net salary after deductions.}

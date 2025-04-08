@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 6 Documenting your Datasets | The nigeriaPITaudit Story: Creating an R Package</title>
+  <meta name="description" content="Chapter 6 Documenting your Datasets | The nigeriaPITaudit Story: Creating an R Package" />
+  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 6 Documenting your Datasets | The nigeriaPITaudit Story: Creating an R Package" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 6 Documenting your Datasets | The nigeriaPITaudit Story: Creating an R Package" />
+  
+  
+  
+
+<meta name="author" content="Lawrence Daniel Garba" />
+
+
+<meta name="date" content="2025-04-07" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="adding-datasets-to-an-r-package.html"/>
+<link rel="next" href="best-practices-for-including-datasets-in-r-packages.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="data-in-the-nigeriapitaudit-package.html"><a href="data-in-the-nigeriapitaudit-package.html"><i class="fa fa-check"></i><b>2</b> Data in the nigeriaPITaudit Package</a></li>
+<li class="chapter" data-level="3" data-path="tools-for-managing-datasets-for-an-r-package.html"><a href="tools-for-managing-datasets-for-an-r-package.html"><i class="fa fa-check"></i><b>3</b> Tools for Managing Datasets for an R Package</a></li>
+<li class="chapter" data-level="4" data-path="preparing-your-datasets-for-an-r-package.html"><a href="preparing-your-datasets-for-an-r-package.html"><i class="fa fa-check"></i><b>4</b> Preparing Your Datasets for an R Package</a></li>
+<li class="chapter" data-level="5" data-path="adding-datasets-to-an-r-package.html"><a href="adding-datasets-to-an-r-package.html"><i class="fa fa-check"></i><b>5</b> Adding Datasets to an R Package</a></li>
+<li class="chapter" data-level="6" data-path="documenting-your-datasets.html"><a href="documenting-your-datasets.html"><i class="fa fa-check"></i><b>6</b> Documenting your Datasets</a></li>
+<li class="chapter" data-level="7" data-path="best-practices-for-including-datasets-in-r-packages.html"><a href="best-practices-for-including-datasets-in-r-packages.html"><i class="fa fa-check"></i><b>7</b> Best Practices for Including Datasets in R Packages</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The nigeriaPITaudit Story: Creating an R Package</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="documenting-your-datasets" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">Chapter 6</span> Documenting your Datasets<a href="documenting-your-datasets.html#documenting-your-datasets" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>This chapter focuses on the importance of documenting datasets in R packages. Clear documentation ensures users can understand and effectively use the data. We cover best practices for writing dataset documentation, using roxygen2, and integrating documentation into the package development workflow for consistency and usability.</p>
+<p><strong>5.1 Why Documenting Your Datasets Matters</strong></p>
+<p>In the context of R packages, clear and thorough documentation is crucial for making your datasets accessible, usable, and reproducible. Documentation serves as a guide for other users and developers to understand the structure, source, and content of the data you’re sharing. It provides transparency and builds trust, helping users know exactly what they’re working with, how to use the data, and how it fits into the broader goals of your R package.</p>
+<p><strong>5.1.1 Importance of Clear Documentation</strong></p>
+<p>Documenting your datasets clearly allows other users to:</p>
+<p>• Understand the structure and contents: What variables are included? What do the variables represent? What are the units of measurement? Without clear documentation, users may misinterpret the data or fail to use it properly.</p>
+<p>• Understand data sources: Knowing where the data came from and how it was collected is crucial for assessing its reliability and relevance. This is especially important for datasets used in scientific research or policy-making.</p>
+<p>• Ensure reproducibility: Reproducible research is a core principle of modern science. By documenting how the dataset was created, cleaned, and processed, others can replicate your results.</p>
+<p>• Maximize reusability: Users can apply datasets to new problems or use them as examples in their own work when they know exactly what the data represents and how it can be manipulated.</p>
+<p><strong>5.1.2 Benefits for Users and Developers</strong></p>
+<p>For Users:</p>
+<p>• Improved understanding: With good documentation, users can easily grasp the dataset’s structure and content without having to spend time figuring it out themselves.</p>
+<p>• Ease of use: Users can apply the dataset in their own projects without confusion, reducing the learning curve associated with unfamiliar datasets.</p>
+<p>• Effective error detection: Clear documentation can help users identify when their analyses might be incorrect or assumptions may not align with the data, minimizing the risk of errors.</p>
+<p>For Developers:</p>
+<p>• Clearer codebase: When you document datasets properly, you not only help users but also make your own codebase easier to maintain and improve. Others who contribute to the package will find it easier to understand your work.</p>
+<p>• Better package adoption: Well-documented datasets are more likely to be adopted by users, which in turn increases the overall impact of your package.</p>
+<p>• Compliance with standards: Well-documented data helps meet open-source and academic standards, especially in contexts where datasets must be transparent and usable by others (e.g., public datasets or research-grade data).</p>
+<p><strong>5.1.3 Best Practices Overview</strong></p>
+<p>To ensure that your datasets are well-documented, you can follow these best practices:</p>
+<ol style="list-style-type: decimal">
+<li><p>Use roxygen2 tags: Use the <span class="citation">@docType</span>, <span class="citation">@format</span>, <span class="citation">@source</span>, and <span class="citation">@examples</span> tags to provide clear and consistent documentation for each dataset in your R package.</p></li>
+<li><p>Describe the structure: Include detailed information about the columns, their types (e.g., numeric, character), and any units of measurement. Specify the number of rows and any known issues (e.g., missing values).</p></li>
+<li><p>Document the source and citation: Always mention where the dataset came from, who created it, and provide citation information if the dataset is publicly available or needs attribution.</p></li>
+<li><p>Provide example usage: Give examples of how to load and use the dataset, along with common operations (e.g., subsetting, summary statistics).</p></li>
+<li><p>Explain preprocessing steps: If you’ve transformed the data in any way (e.g., cleaning, aggregating), be sure to document these steps in the dataset’s description. This helps users understand how the data was processed and avoid any confusion.</p></li>
+</ol>
+<p><strong>5.2 Overview of the Documentation Workflow</strong></p>
+<p>Documenting datasets is an essential part of developing an R package. It ensures that users can understand and effectively use the data. The documentation workflow can be broken down into a high-level process:</p>
+<p>High-level Flow: Write → Test → Build → Check</p>
+<ol style="list-style-type: decimal">
+<li><p>Write: Begin by writing the documentation for your dataset in a file within the R/ directory. This is done using roxygen2 comments, which provide metadata and explanations for the dataset.</p></li>
+<li><p>Test: After writing the documentation, test whether it is correctly formatted and functional. Check for errors in the documentation and ensure that the dataset loads and functions properly.</p></li>
+<li><p>Build: Once documentation and code are written, build the package. This includes compiling all the scripts and datasets into a complete package that can be shared or used.</p></li>
+<li><p>Check: Run checks to verify the integrity and completeness of the documentation. This step ensures that all documentation is compliant with R package standards and that there are no errors. Where Documentation Fits in Package Development</p></li>
+</ol>
+<p>Documentation is an integral part of the package development process, as it serves as the bridge between the code and the users. It should be done early in the package development process and continuously updated as changes are made. By documenting your datasets well, you are ensuring that users can easily understand and use your data without needing to dive into the raw code. As you develop functions or update datasets, keep documentation in sync to ensure consistency throughout the package.</p>
+<p><strong>5.3 Creating a Dataset Documentation File</strong></p>
+<p>The documentation for datasets in an R package is typically stored in .R files within the R/ directory. This is where you define the metadata about the dataset and provide information that users will need to understand it. Where the Documentation Lives</p>
+<p>• R/*.R Files: Dataset documentation is stored as comments in .R files located inthe R/ folder of the package. These files are often associated with the dataset and are typically named after the dataset they document (e.g., my_dataset.R for my_dataset).</p>
+<p>• Naming Conventions: Follow consistent naming conventions to ensure that each dataset has a corresponding documentation file. This should match the dataset’s name and provide easy access for users and developers.</p>
+<p>How Dataset Docs Differ from Function Docs</p>
+<p>Dataset documentation has some key differences compared to function documentation:</p>
+<p>• Dataset documentation: Focuses on providing a description of the data structure (e.g., columns, types), the source of the data, and how it can be used. It may include information on preprocessing steps or transformations applied to the data.</p>
+<p>• Function documentation: Describes the function’s purpose, arguments, return values, and examples of how to use it. While function documentation is focused on how to execute a task, dataset documentation is focused on describing the data that is being used within those tasks.</p>
+<p><strong>5.4 Writing with roxygen2</strong></p>
+<p>The roxygen2 package is the primary tool used for documenting datasets in R. It allows you to write documentation directly in the code file, using special tags that are processed to generate .Rd files (which contain the help documentation for R objects).</p>
+<p>Using roxygen2 for Dataset Docs:</p>
+<p>With roxygen2, you can use special comment tags to document datasets. The documentation is written directly above the dataset’s definition in .R files. Minimal vs Detailed Documentation</p>
+<p>• Minimal Documentation: The minimum documentation for a dataset includes a brief description of the dataset, its source, and how to use it.</p>
+<p>• Detailed Documentation: More comprehensive documentation includes the dataset’s structure, units of measurement, details of preprocessing or cleaning steps, and any transformations performed on the data.</p>
+<p>Tag Examples
+Here are some commonly used roxygen2 tags for dataset documentation:</p>
+<p>• <span class="citation">@docType</span> dataset: Specifies that this is a dataset (not a function).</p>
+<p>• <span class="citation">@format</span>: Describes the data structure (e.g., number of rows, columns, types).</p>
+<p>• <span class="citation">@source</span>: Provides information about where the data comes from or how it was collected.</p>
+<p>• <span class="citation">@examples</span>: Provides examples of how to load and use the dataset in R.</p>
+<p>Example:</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="documenting-your-datasets.html#cb47-1" tabindex="-1"></a><span class="co">#&#39; @docType dataset</span></span>
+<span id="cb47-2"><a href="documenting-your-datasets.html#cb47-2" tabindex="-1"></a><span class="co">#&#39; @format A data frame with 100 rows and 3 variables:</span></span>
+<span id="cb47-3"><a href="documenting-your-datasets.html#cb47-3" tabindex="-1"></a><span class="co">#&#39; \describe{</span></span>
+<span id="cb47-4"><a href="documenting-your-datasets.html#cb47-4" tabindex="-1"></a><span class="co">#&#39;   \item{age}{Age of the employee (numeric)}</span></span>
+<span id="cb47-5"><a href="documenting-your-datasets.html#cb47-5" tabindex="-1"></a><span class="co">#&#39;   \item{salary}{Salary of the employee (numeric)}</span></span>
+<span id="cb47-6"><a href="documenting-your-datasets.html#cb47-6" tabindex="-1"></a><span class="co">#&#39;   \item{department}{Department the employee belongs to (factor)}</span></span>
+<span id="cb47-7"><a href="documenting-your-datasets.html#cb47-7" tabindex="-1"></a><span class="co">#&#39; }</span></span>
+<span id="cb47-8"><a href="documenting-your-datasets.html#cb47-8" tabindex="-1"></a><span class="co">#&#39; @source Internal payroll database</span></span>
+<span id="cb47-9"><a href="documenting-your-datasets.html#cb47-9" tabindex="-1"></a><span class="co">#&#39; @examples</span></span>
+<span id="cb47-10"><a href="documenting-your-datasets.html#cb47-10" tabindex="-1"></a><span class="co">#&#39; data(employee_data)</span></span>
+<span id="cb47-11"><a href="documenting-your-datasets.html#cb47-11" tabindex="-1"></a><span class="co">#&#39; head(employee_data)</span></span>
+<span id="cb47-12"><a href="documenting-your-datasets.html#cb47-12" tabindex="-1"></a><span class="st">&quot;employee_data&quot;</span></span></code></pre></div>
+<p><strong>5.5 Key Components of Dataset Documentation</strong></p>
+<p>Dataset documentation must contain several key components to ensure that users can fully understand and properly use the data. Here are the key sections to include:</p>
+<p><strong>5.5.1 Title – One-line Summary</strong></p>
+<p>The title is a concise, one-line summary that gives the user an immediate understanding of the dataset. It should be descriptive enough to convey the purpose of the data.</p>
+<p>Example:</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="documenting-your-datasets.html#cb48-1" tabindex="-1"></a><span class="co">#&#39; Employee Data for 2021</span></span></code></pre></div>
+<p><strong>5.5.2 Description – What the Data Is, Where It Comes From</strong></p>
+<p>The description provides context for the dataset. It should include what the dataset represents, who collected it, and why it was collected. This section can also explain any transformations or preprocessing steps that were applied to the data.</p>
+<p>Example:</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="documenting-your-datasets.html#cb49-1" tabindex="-1"></a><span class="co">#&#39; A dataset containing employee information for the year 2021.</span></span>
+<span id="cb49-2"><a href="documenting-your-datasets.html#cb49-2" tabindex="-1"></a><span class="co">#&#39; Includes salary details, department, and employee age.</span></span>
+<span id="cb49-3"><a href="documenting-your-datasets.html#cb49-3" tabindex="-1"></a><span class="co">#&#39; The data was collected from the company’s payroll database.</span></span></code></pre></div>
+<p><strong>5.5.3 Format – Data Structure (Rows, Columns, Types)</strong></p>
+<p>The format section describes the dataset’s structure, including the number of rows, the column names, and the types of data in each column (e.g., numeric, factor).</p>
+<p>Example:</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="documenting-your-datasets.html#cb50-1" tabindex="-1"></a><span class="co">#&#39; @format A data frame with 100 rows and 3 variables:</span></span>
+<span id="cb50-2"><a href="documenting-your-datasets.html#cb50-2" tabindex="-1"></a><span class="co">#&#39; \describe{</span></span>
+<span id="cb50-3"><a href="documenting-your-datasets.html#cb50-3" tabindex="-1"></a><span class="co">#&#39;   \item{age}{Employee’s age (numeric)}</span></span>
+<span id="cb50-4"><a href="documenting-your-datasets.html#cb50-4" tabindex="-1"></a><span class="co">#&#39;   \item{salary}{Employee’s annual salary (numeric)}</span></span>
+<span id="cb50-5"><a href="documenting-your-datasets.html#cb50-5" tabindex="-1"></a><span class="co">#&#39;   \item{department}{Department (factor)}</span></span>
+<span id="cb50-6"><a href="documenting-your-datasets.html#cb50-6" tabindex="-1"></a><span class="co">#&#39; }</span></span></code></pre></div>
+<p><strong>5.5.4 Source – Reference to External Origin or Publication</strong></p>
+<p>The source section provides details about where the data came from. This could be a publication, a website, or an internal database. This helps ensure that users can verify and trust the data.</p>
+<p>Example:</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="documenting-your-datasets.html#cb51-1" tabindex="-1"></a><span class="co">#&#39; @source Company payroll database, retrieved in January 2021.</span></span></code></pre></div>
+<p><strong>5.5.5 Examples – How to Load/Use the Dataset</strong></p>
+<p>The examples section shows how users can load and use the dataset in their R code. This can include code snippets demonstrating common operations on the dataset.</p>
+<p>Example:</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="documenting-your-datasets.html#cb52-1" tabindex="-1"></a><span class="co">#&#39; @examples</span></span>
+<span id="cb52-2"><a href="documenting-your-datasets.html#cb52-2" tabindex="-1"></a><span class="co">#&#39; data(employee_data)</span></span>
+<span id="cb52-3"><a href="documenting-your-datasets.html#cb52-3" tabindex="-1"></a><span class="co">#&#39; summary(employee_data)</span></span>
+<span id="cb52-4"><a href="documenting-your-datasets.html#cb52-4" tabindex="-1"></a><span class="co">#&#39; head(employee_data)</span></span></code></pre></div>
+<p><strong>5.6 Building and Checking Documentation</strong></p>
+<p>Once your dataset documentation is complete, it’s important to build and check it to ensure that everything is working properly.</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="documenting-your-datasets.html#cb53-1" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">document</span>()</span></code></pre></div>
+<p>The devtools::document() function processes all roxygen2 comments in your code files and generates the corresponding .Rd files in the man/ directory. This is an important step in creating the package documentation.</p>
+<p>Example:</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="documenting-your-datasets.html#cb54-1" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">document</span>()</span></code></pre></div>
+<p>Viewing with ?datasetName:</p>
+<p>After building the documentation, you can view it by typing ?datasetName in the R console. This will bring up the documentation for the dataset, allowing users to easily access the information.</p>
+<p>Example:</p>
+<p>?employee_data</p>
+<p>devtools::check() to Validate Documentation</p>
+<p>Use devtools::check() to run a comprehensive check of your R package. This will validate the correctness of your documentation, ensuring that all required fields are filled and that there are no errors.</p>
+<p>Example:</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="documenting-your-datasets.html#cb55-1" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">check</span>()</span></code></pre></div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="adding-datasets-to-an-r-package.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="best-practices-for-including-datasets-in-r-packages.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+</body>
+
+</html>
