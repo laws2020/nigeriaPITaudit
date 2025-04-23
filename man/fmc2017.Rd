@@ -7,19 +7,19 @@
 \format{
 A data frame with \code{n} rows and \code{m} columns:
 \describe{
-\item{Staff_No}{Numeric. Employee ID.}
+\item{S/N}{Numeric. Serial number of employee record.}
 \item{Name}{Character. Employee name.}
-\item{Basic_Salary}{Numeric. The employee's basic salary.}
+\item{Staff_No}{Numeric. Employee ID.}
 \item{ConM/H}{Numeric. The employee's grade level.}
-\item{Call_Allowance}{Numeric. Allowance for call staff.}
+\item{Basic_Salary}{Numeric. The employee's basic salary.}
 \item{Teaching_Allowance}{Numeric. Allowance for teaching staff.}
 \item{Salary_Arrears}{Numeric. Salary arrears, if applicable.}
 \item{other_allowances}{Numeric. Additional allowances.}
 \item{Overtime}{Numeric. Overtime payment.}
 \item{Shifting}{Numeric. Shift-related payments.}
-\item{Specailist}{Numeric. Extra pay for specialist work.}
+\item{specialist}{Numeric. Extra pay for specialist work.}
 \item{Hazard_Allowance}{Numeric. Extra pay for hazardous work.}
-\item{S/N}{Numeric. Serial number of employee record.}
+\item{Call_Allowance}{Numeric. Allowance for call staff.}
 \item{Netpay}{Numeric. Employee's net salary after deductions.}
 }
 }

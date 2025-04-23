@@ -23,7 +23,7 @@
 <meta name="author" content="Lawrence Daniel Garba" />
 
 
-<meta name="date" content="2025-04-09" />
+<meta name="date" content="2025-04-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -174,17 +174,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><strong>6.1.2 Techniques for Reducing Dataset Size</strong></p>
 <p>• Include only relevant columns</p>
 <p>Avoid storing unnecessary fields. If your analysis only needs 5 columns, don’t include all 50 from the raw data.</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="best-practices-for-including-datasets-in-r-packages.html#cb56-1" tabindex="-1"></a>minimal_data <span class="ot">&lt;-</span> original_data[, <span class="fu">c</span>(<span class="st">&quot;employee_id&quot;</span>,<span class="st">&quot;gross_salary&quot;</span>, <span class="st">&quot;tax_paid&quot;</span>)]</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="best-practices-for-including-datasets-in-r-packages.html#cb60-1" tabindex="-1"></a>minimal_data <span class="ot">&lt;-</span> original_data[, <span class="fu">c</span>(<span class="st">&quot;employee_id&quot;</span>,<span class="st">&quot;gross_salary&quot;</span>, <span class="st">&quot;tax_paid&quot;</span>)]</span></code></pre></div>
 <p>• Use efficient data types</p>
 <p>Convert character strings to factors where appropriate. Avoid storing large objects in inefficient formats.</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="best-practices-for-including-datasets-in-r-packages.html#cb57-1" tabindex="-1"></a>dataset<span class="sc">$</span>employer_type <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(dataset<span class="sc">$</span>employer_type)</span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="best-practices-for-including-datasets-in-r-packages.html#cb61-1" tabindex="-1"></a>dataset<span class="sc">$</span>employer_type <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(dataset<span class="sc">$</span>employer_type)</span></code></pre></div>
 <p>• Sample the data</p>
 <p>Instead of uploading the full dataset, especially if it’s huge, take a representative sample:</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="best-practices-for-including-datasets-in-r-packages.html#cb58-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb58-2"><a href="best-practices-for-including-datasets-in-r-packages.html#cb58-2" tabindex="-1"></a>sampled_data <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">sample_n</span>(full_data, <span class="dv">500</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="best-practices-for-including-datasets-in-r-packages.html#cb62-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb62-2"><a href="best-practices-for-including-datasets-in-r-packages.html#cb62-2" tabindex="-1"></a>sampled_data <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">sample_n</span>(full_data, <span class="dv">500</span>)</span></code></pre></div>
 <p>• Compress your data
 Use the compress argument in usethis::use_data() for storage:</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="best-practices-for-including-datasets-in-r-packages.html#cb59-1" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_data</span>(my_data, <span class="at">compress =</span> <span class="st">&quot;xz&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="best-practices-for-including-datasets-in-r-packages.html#cb63-1" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_data</span>(my_data, <span class="at">compress =</span> <span class="st">&quot;xz&quot;</span>)</span></code></pre></div>
 <p>Compression types include:</p>
 <p>• “xz” – best compression</p>
 <p>• “bzip2” – medium compression</p>
@@ -193,10 +193,10 @@ Use the compress argument in usethis::use_data() for storage:</p>
 <p>Do not include the same dataset in multiple formats (e.g., both CSV and .rda). Stick to one, ideally .rda.</p>
 <p>• Summarize instead of storing full data</p>
 <p>If your goal is only to share results or statistics, store summaries instead of raw data:</p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="best-practices-for-including-datasets-in-r-packages.html#cb60-1" tabindex="-1"></a>summary_stats <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb60-2"><a href="best-practices-for-including-datasets-in-r-packages.html#cb60-2" tabindex="-1"></a>  <span class="at">avg_salary =</span> <span class="fu">mean</span>(data<span class="sc">$</span>gross_salary),</span>
-<span id="cb60-3"><a href="best-practices-for-including-datasets-in-r-packages.html#cb60-3" tabindex="-1"></a>  <span class="at">median_tax =</span> <span class="fu">median</span>(data<span class="sc">$</span>tax_paid)</span>
-<span id="cb60-4"><a href="best-practices-for-including-datasets-in-r-packages.html#cb60-4" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="best-practices-for-including-datasets-in-r-packages.html#cb64-1" tabindex="-1"></a>summary_stats <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb64-2"><a href="best-practices-for-including-datasets-in-r-packages.html#cb64-2" tabindex="-1"></a>  <span class="at">avg_salary =</span> <span class="fu">mean</span>(data<span class="sc">$</span>gross_salary),</span>
+<span id="cb64-3"><a href="best-practices-for-including-datasets-in-r-packages.html#cb64-3" tabindex="-1"></a>  <span class="at">median_tax =</span> <span class="fu">median</span>(data<span class="sc">$</span>tax_paid)</span>
+<span id="cb64-4"><a href="best-practices-for-including-datasets-in-r-packages.html#cb64-4" tabindex="-1"></a>)</span></code></pre></div>
 <p><strong>6.1.3 Quick Checklist</strong></p>
 <p>Before you include a dataset, ask yourself:</p>
 <p>• Does this dataset exceed 5MB?</p>
@@ -212,33 +212,33 @@ Use the compress argument in usethis::use_data() for storage:</p>
 <p>• <span class="citation">@format</span>: Describe the structure of the dataset (number of rows, columns, types).</p>
 <p>• <span class="citation">@source</span>: Mention where the data came from (URL, paper, manual entry, etc.).</p>
 <p>• <span class="citation">@examples</span>: Provide one or more examples to help users load or use the dataset.</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="best-practices-for-including-datasets-in-r-packages.html#cb61-1" tabindex="-1"></a><span class="co">#&#39; Payroll dataset for a typical Nigerian firm</span></span>
-<span id="cb61-2"><a href="best-practices-for-including-datasets-in-r-packages.html#cb61-2" tabindex="-1"></a><span class="co">#&#39;</span></span>
-<span id="cb61-3"><a href="best-practices-for-including-datasets-in-r-packages.html#cb61-3" tabindex="-1"></a><span class="co">#&#39; A dataset containing employee payroll data used in PAYE auditing.</span></span>
-<span id="cb61-4"><a href="best-practices-for-including-datasets-in-r-packages.html#cb61-4" tabindex="-1"></a><span class="co">#&#39;</span></span>
-<span id="cb61-5"><a href="best-practices-for-including-datasets-in-r-packages.html#cb61-5" tabindex="-1"></a><span class="co">#&#39; @format A data frame with 200 rows and 6 variables:</span></span>
-<span id="cb61-6"><a href="best-practices-for-including-datasets-in-r-packages.html#cb61-6" tabindex="-1"></a><span class="co">#&#39; \describe{</span></span>
-<span id="cb61-7"><a href="best-practices-for-including-datasets-in-r-packages.html#cb61-7" tabindex="-1"></a><span class="co">#&#39;   \item{name}{Employee full name}</span></span>
-<span id="cb61-8"><a href="best-practices-for-including-datasets-in-r-packages.html#cb61-8" tabindex="-1"></a><span class="co">#&#39;   \item{gross_salary}{Monthly gross salary in NGN}</span></span>
-<span id="cb61-9"><a href="best-practices-for-including-datasets-in-r-packages.html#cb61-9" tabindex="-1"></a><span class="co">#&#39;   \item{pension}{Pension deduction}</span></span>
-<span id="cb61-10"><a href="best-practices-for-including-datasets-in-r-packages.html#cb61-10" tabindex="-1"></a><span class="co">#&#39;   \item{nhf}{National Housing Fund deduction}</span></span>
-<span id="cb61-11"><a href="best-practices-for-including-datasets-in-r-packages.html#cb61-11" tabindex="-1"></a><span class="co">#&#39;   \item{tax_paid}{Total tax remitted}</span></span>
-<span id="cb61-12"><a href="best-practices-for-including-datasets-in-r-packages.html#cb61-12" tabindex="-1"></a><span class="co">#&#39;   \item{month}{Payroll month}</span></span>
-<span id="cb61-13"><a href="best-practices-for-including-datasets-in-r-packages.html#cb61-13" tabindex="-1"></a><span class="co">#&#39; }</span></span>
-<span id="cb61-14"><a href="best-practices-for-including-datasets-in-r-packages.html#cb61-14" tabindex="-1"></a><span class="co">#&#39; @source Internal computation from sample audit files</span></span>
-<span id="cb61-15"><a href="best-practices-for-including-datasets-in-r-packages.html#cb61-15" tabindex="-1"></a><span class="co">#&#39; @examples</span></span>
-<span id="cb61-16"><a href="best-practices-for-including-datasets-in-r-packages.html#cb61-16" tabindex="-1"></a><span class="co">#&#39; data(staff_payroll)</span></span>
-<span id="cb61-17"><a href="best-practices-for-including-datasets-in-r-packages.html#cb61-17" tabindex="-1"></a><span class="co">#&#39; head(staff_payroll)</span></span>
-<span id="cb61-18"><a href="best-practices-for-including-datasets-in-r-packages.html#cb61-18" tabindex="-1"></a><span class="st">&quot;staff_payroll&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="best-practices-for-including-datasets-in-r-packages.html#cb65-1" tabindex="-1"></a><span class="co">#&#39; Payroll dataset for a typical Nigerian firm</span></span>
+<span id="cb65-2"><a href="best-practices-for-including-datasets-in-r-packages.html#cb65-2" tabindex="-1"></a><span class="co">#&#39;</span></span>
+<span id="cb65-3"><a href="best-practices-for-including-datasets-in-r-packages.html#cb65-3" tabindex="-1"></a><span class="co">#&#39; A dataset containing employee payroll data used in PAYE auditing.</span></span>
+<span id="cb65-4"><a href="best-practices-for-including-datasets-in-r-packages.html#cb65-4" tabindex="-1"></a><span class="co">#&#39;</span></span>
+<span id="cb65-5"><a href="best-practices-for-including-datasets-in-r-packages.html#cb65-5" tabindex="-1"></a><span class="co">#&#39; @format A data frame with 200 rows and 6 variables:</span></span>
+<span id="cb65-6"><a href="best-practices-for-including-datasets-in-r-packages.html#cb65-6" tabindex="-1"></a><span class="co">#&#39; \describe{</span></span>
+<span id="cb65-7"><a href="best-practices-for-including-datasets-in-r-packages.html#cb65-7" tabindex="-1"></a><span class="co">#&#39;   \item{name}{Employee full name}</span></span>
+<span id="cb65-8"><a href="best-practices-for-including-datasets-in-r-packages.html#cb65-8" tabindex="-1"></a><span class="co">#&#39;   \item{gross_salary}{Monthly gross salary in NGN}</span></span>
+<span id="cb65-9"><a href="best-practices-for-including-datasets-in-r-packages.html#cb65-9" tabindex="-1"></a><span class="co">#&#39;   \item{pension}{Pension deduction}</span></span>
+<span id="cb65-10"><a href="best-practices-for-including-datasets-in-r-packages.html#cb65-10" tabindex="-1"></a><span class="co">#&#39;   \item{nhf}{National Housing Fund deduction}</span></span>
+<span id="cb65-11"><a href="best-practices-for-including-datasets-in-r-packages.html#cb65-11" tabindex="-1"></a><span class="co">#&#39;   \item{tax_paid}{Total tax remitted}</span></span>
+<span id="cb65-12"><a href="best-practices-for-including-datasets-in-r-packages.html#cb65-12" tabindex="-1"></a><span class="co">#&#39;   \item{month}{Payroll month}</span></span>
+<span id="cb65-13"><a href="best-practices-for-including-datasets-in-r-packages.html#cb65-13" tabindex="-1"></a><span class="co">#&#39; }</span></span>
+<span id="cb65-14"><a href="best-practices-for-including-datasets-in-r-packages.html#cb65-14" tabindex="-1"></a><span class="co">#&#39; @source Internal computation from sample audit files</span></span>
+<span id="cb65-15"><a href="best-practices-for-including-datasets-in-r-packages.html#cb65-15" tabindex="-1"></a><span class="co">#&#39; @examples</span></span>
+<span id="cb65-16"><a href="best-practices-for-including-datasets-in-r-packages.html#cb65-16" tabindex="-1"></a><span class="co">#&#39; data(staff_payroll)</span></span>
+<span id="cb65-17"><a href="best-practices-for-including-datasets-in-r-packages.html#cb65-17" tabindex="-1"></a><span class="co">#&#39; head(staff_payroll)</span></span>
+<span id="cb65-18"><a href="best-practices-for-including-datasets-in-r-packages.html#cb65-18" tabindex="-1"></a><span class="st">&quot;staff_payroll&quot;</span></span></code></pre></div>
 <p><strong>6.2.2 Match Dataset Names with .Rd Files</strong></p>
 <p>The documentation files generated from roxygen2 will live in the man/ folder as .Rd files, named after your dataset. If your dataset is tax_data_2023, then the file in man/ will be tax_data_2023.Rd.</p>
 <p>This helps R find and display help files correctly when users run ?tax_data_2023.</p>
 <p><strong>6.2.3 Include Usage Examples</strong></p>
 <p>Usage examples are essential for helping users explore the data quickly. Provide at least one working example that uses basic R functions like head(), summary(), or even custom functions from your package:</p>
 <p><span class="citation">@examples</span>:</p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="best-practices-for-including-datasets-in-r-packages.html#cb62-1" tabindex="-1"></a><span class="fu">data</span>(tax_data_2023)</span>
-<span id="cb62-2"><a href="best-practices-for-including-datasets-in-r-packages.html#cb62-2" tabindex="-1"></a><span class="fu">summary</span>(tax_data_2023)</span>
-<span id="cb62-3"><a href="best-practices-for-including-datasets-in-r-packages.html#cb62-3" tabindex="-1"></a><span class="fu">plot</span>(tax_data_2023<span class="sc">$</span>gross_salary, tax_data_2023<span class="sc">$</span>tax_paid).</span></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="best-practices-for-including-datasets-in-r-packages.html#cb66-1" tabindex="-1"></a><span class="fu">data</span>(tax_data_2023)</span>
+<span id="cb66-2"><a href="best-practices-for-including-datasets-in-r-packages.html#cb66-2" tabindex="-1"></a><span class="fu">summary</span>(tax_data_2023)</span>
+<span id="cb66-3"><a href="best-practices-for-including-datasets-in-r-packages.html#cb66-3" tabindex="-1"></a><span class="fu">plot</span>(tax_data_2023<span class="sc">$</span>gross_salary, tax_data_2023<span class="sc">$</span>tax_paid).</span></code></pre></div>
 <p>Avoid complex or long examples in the documentation — keep them short and focused.</p>
 <p><strong>6.3 Using Consistent and Descriptive Naming Conventions</strong></p>
 <p>Naming your datasets clearly and consistently improves usability, supports better code readability, and prevents confusion — especially as your package grows in size and scope.</p>
@@ -265,12 +265,12 @@ Use the compress argument in usethis::use_data() for storage:</p>
 <p>• Creates a new R script in the data-raw/ directory</p>
 <p>• Sets up boilerplate code for loading, cleaning, and saving data</p>
 <p>• Encourages clean separation between raw and processed data</p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="best-practices-for-including-datasets-in-r-packages.html#cb63-1" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_data_raw</span>(<span class="st">&quot;staff_payroll&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="best-practices-for-including-datasets-in-r-packages.html#cb67-1" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_data_raw</span>(<span class="st">&quot;staff_payroll&quot;</span>)</span></code></pre></div>
 <p><strong>6.4.2 Ensure Reproducibility</strong></p>
 <p>Always write scripts in data-raw/ that can regenerate your .rda datasets from scratch. This includes loading raw files (CSV, Excel), cleaning data, and saving it using usethis::use_data():</p>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="best-practices-for-including-datasets-in-r-packages.html#cb64-1" tabindex="-1"></a>raw_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data-raw/staff_raw.csv&quot;</span>)</span>
-<span id="cb64-2"><a href="best-practices-for-including-datasets-in-r-packages.html#cb64-2" tabindex="-1"></a>clean_data <span class="ot">&lt;-</span> <span class="fu">clean_staff_data</span>(raw_data)</span>
-<span id="cb64-3"><a href="best-practices-for-including-datasets-in-r-packages.html#cb64-3" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_data</span>(clean_data, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="best-practices-for-including-datasets-in-r-packages.html#cb68-1" tabindex="-1"></a>raw_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data-raw/staff_raw.csv&quot;</span>)</span>
+<span id="cb68-2"><a href="best-practices-for-including-datasets-in-r-packages.html#cb68-2" tabindex="-1"></a>clean_data <span class="ot">&lt;-</span> <span class="fu">clean_staff_data</span>(raw_data)</span>
+<span id="cb68-3"><a href="best-practices-for-including-datasets-in-r-packages.html#cb68-3" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_data</span>(clean_data, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p>This process helps users and contributors understand how your data was created and allows others to reproduce it reliably.</p>
 <p><strong>6.5 Testing Your Datasets</strong></p>
 <p>Testing isn’t just for functions — your datasets should be tested too. This ensures consistency and prevents bugs when your package grows or changes.</p>
@@ -280,15 +280,15 @@ Use the compress argument in usethis::use_data() for storage:</p>
 <p>• Expected number of rows or columns</p>
 <p>• Missing values or invalid entries</p>
 <p>Place these tests in the tests/testthat/ folder:</p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="best-practices-for-including-datasets-in-r-packages.html#cb65-1" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">&quot;staff_payroll has correct columns&quot;</span>, {</span>
-<span id="cb65-2"><a href="best-practices-for-including-datasets-in-r-packages.html#cb65-2" tabindex="-1"></a>  <span class="fu">expect_named</span>(staff_payroll, <span class="fu">c</span>(<span class="st">&quot;name&quot;</span>, <span class="st">&quot;gross_salary&quot;</span>, <span class="st">&quot;pension&quot;</span>, <span class="st">&quot;nhf&quot;</span>, <span class="st">&quot;tax_paid&quot;</span>, <span class="st">&quot;month&quot;</span>))</span>
-<span id="cb65-3"><a href="best-practices-for-including-datasets-in-r-packages.html#cb65-3" tabindex="-1"></a>})</span>
-<span id="cb65-4"><a href="best-practices-for-including-datasets-in-r-packages.html#cb65-4" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">&quot;no missing values in tax_paid&quot;</span>, {</span>
-<span id="cb65-5"><a href="best-practices-for-including-datasets-in-r-packages.html#cb65-5" tabindex="-1"></a>  <span class="fu">expect_false</span>(<span class="fu">any</span>(<span class="fu">is.na</span>(staff_payroll<span class="sc">$</span>tax_paid)))</span>
-<span id="cb65-6"><a href="best-practices-for-including-datasets-in-r-packages.html#cb65-6" tabindex="-1"></a>  })</span></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="best-practices-for-including-datasets-in-r-packages.html#cb69-1" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">&quot;staff_payroll has correct columns&quot;</span>, {</span>
+<span id="cb69-2"><a href="best-practices-for-including-datasets-in-r-packages.html#cb69-2" tabindex="-1"></a>  <span class="fu">expect_named</span>(staff_payroll, <span class="fu">c</span>(<span class="st">&quot;name&quot;</span>, <span class="st">&quot;gross_salary&quot;</span>, <span class="st">&quot;pension&quot;</span>, <span class="st">&quot;nhf&quot;</span>, <span class="st">&quot;tax_paid&quot;</span>, <span class="st">&quot;month&quot;</span>))</span>
+<span id="cb69-3"><a href="best-practices-for-including-datasets-in-r-packages.html#cb69-3" tabindex="-1"></a>})</span>
+<span id="cb69-4"><a href="best-practices-for-including-datasets-in-r-packages.html#cb69-4" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">&quot;no missing values in tax_paid&quot;</span>, {</span>
+<span id="cb69-5"><a href="best-practices-for-including-datasets-in-r-packages.html#cb69-5" tabindex="-1"></a>  <span class="fu">expect_false</span>(<span class="fu">any</span>(<span class="fu">is.na</span>(staff_payroll<span class="sc">$</span>tax_paid)))</span>
+<span id="cb69-6"><a href="best-practices-for-including-datasets-in-r-packages.html#cb69-6" tabindex="-1"></a>  })</span></code></pre></div>
 <p><strong>6.5.2 Automate with devtools::test()</strong></p>
 <p>You can run all dataset (and package) tests automatically using:</p>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="best-practices-for-including-datasets-in-r-packages.html#cb66-1" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">test</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="best-practices-for-including-datasets-in-r-packages.html#cb70-1" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">test</span>()</span></code></pre></div>
 <p>This encourages a data-aware development cycle and early bug detection.</p>
 <p><strong>6.6 Avoiding Proprietary or Sensitive Data</strong></p>
 <p>It’s crucial to be mindful of what data you’re including in your package — especially when sharing it publicly.</p>

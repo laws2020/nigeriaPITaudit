@@ -4,19 +4,19 @@
 #'
 #' @format A data frame with `n` rows and `m` columns:
 #' \describe{
+#'  \item{S/N}{Numeric. Serial number of employee record.}
+#'  \item{Name}{Character. Employee name.}
 #'   \item{Staff_No}{Numeric. Employee ID.}
-#'   \item{Name}{Character. Employee name.}
+#'  \item{ConM/H}{Numeric. The employee's grade level.}
 #'   \item{Basic_Salary}{Numeric. The employee's basic salary.}
-#'   \item{ConM/H}{Numeric. The employee's grade level.}
-#'   \item{Call_Allowance}{Numeric. Allowance for call staff.}
 #'   \item{Teaching_Allowance}{Numeric. Allowance for teaching staff.}
 #'   \item{Salary_Arrears}{Numeric. Salary arrears, if applicable.}
 #'   \item{other_allowances}{Numeric. Additional allowances.}
-#'   \item{Overtime}{Numeric. Overtime payment.}
-#'   \item{Shifting}{Numeric. Shift-related payments.}
-#'   \item{Specailist}{Numeric. Extra pay for specialist work.}
-#'   \item{Hazard_Allowance}{Numeric. Extra pay for hazardous work.}
-#'   \item{S/N}{Numeric. Serial number of employee record.}
+#'  \item{Overtime}{Numeric. Overtime payment.}
+#'  \item{Shifting}{Numeric. Shift-related payments.}
+#'   \item{specialist}{Numeric. Extra pay for specialist work.}
+#'    \item{Hazard_Allowance}{Numeric. Extra pay for hazardous work.}
+#'   \item{Call_Allowance}{Numeric. Allowance for call staff.}
 #'   \item{Netpay}{Numeric. Employee's net salary after deductions.}
 #' }
 #' @source FMC Payroll System

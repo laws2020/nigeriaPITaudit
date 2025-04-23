@@ -288,7 +288,107 @@ In addition to the core tools mentioned above, there are several other utilities
 
 **2.7.1 tools::checkRdaFiles() and tools::resaveRdaFiles():**
 
-•	checkRdaFiles(): Checks if .rda files are properly formatted and can be loaded correctly.
+resaveRdaFiles() is designed to work with R data files (.Rda or .rda), not Excel files. 
+Solution
+If you want to work with the data in R, you'll need to:
+
+1. Read the Excel file into R using a package like readxl or openxlsx.
+2. Save the data as an R data file (.Rda or .rda) using save().
+Here's an example:
+***Load the readxl package***
+library(readxl)
+
+***Read the Excel file***
+data <- read_excel("C:/Users/Lawrence Daniel/Downloads/fmc20172.xlsx")
+
+**Save the data as an R data file**
+save(data, file = "fmc20172.Rda")
+
+
+After saving the data as an R data file, you can use resaveRdaFiles() if needed. However, it's likely that you won't need to use resaveRdaFiles() unless you're working with package development.
+
+When developing a package, it's common to store data in the data directory. Here's the procedure:
+
+Step 1: Prepare the Data
+1. Load your data into R (e.g., using read_excel()).
+2. Clean, transform, and prepare the data as needed.
+
+Step 2: Save the Data as an R Data File
+1. Use save() to save the data as an R data file (.Rda or .rda) in the data directory of your package.
+2. Make sure to use compress = TRUE to reduce file size.
+
+Example:
+
+
+save(data, file = "path/to/your/package/data/fmc20172.Rda", compress = TRUE)
+
+
+Step 3: Document the Data
+1. Create a documentation file for the data in the R directory (e.g., fmc20172.R).
+2. Use roxygen2 tags to document the data.
+
+Example:
+
+```{r, eval=FALSE}
+#' FMC 2017 Data
+#'
+#' Description of the data
+#'
+#' @format A data frame with columns ...
+"fmc20172"
+```
+
+Step 4: Load the Data in the Package
+1. When you build and install the package, the data will be available for use.
+2. You can load the data using data("fmc20172", package = "yourPackageName").
+
+*Using tools::resaveRdaFiles()*
+
+If you have multiple data files in your data directory, you can use 'tools::resaveRdaFiles()' to update them. However, this is typically not necessary unless you're making changes to the data or package structure.
+
+In our case, using 'save(data, file = "fmc20172.Rda")' directly into the target folder (data directory) is a good approach. Just make sure to follow the steps above to document the data properly.
+
+When using 'tools::resaveRdaFiles()\', you typically need to specify the path to the data directory.
+
+Syntax
+The syntax for 'resaveRdaFiles(); is:
+
+```{r, eval=FALSE}
+tools::resaveRdaFiles("path/to/your/package/data")
+```
+
+Purpose
+By specifying the path to the data directory, 'resaveRdaFiles()' will update all R data files (.Rda or .rda) in that directory.
+
+Example
+If your package directory is mypackage, and the data directory is inside it, you would use:
+
+```{r, eval=FALSE}
+tools::resaveRdaFiles("path/to/mypackage/data")
+```
+
+Note
+Make sure to run 'resaveRdaFiles()' from the parent directory of your package or specify the full path to the data directory.
+
+By using 'resaveRdaFiles()' with the correct path, you can efficiently update all R data files in your package's data directory.
+
+
+Here's an example of how to use 'tools::resaveRdaFiles()' with your directory path:
+
+```{r, eval=FALSE}
+tools::resaveRdaFiles("C:/Users/Lawrence Daniel/Desktop/nigeriaPITaudit/data")
+```
+
+Note that w've used forward slashes (/) instead of backslashes (\) in the path. Both should work, but forward slashes are often more convenient in R.
+
+By running this command, 'resaveRdaFiles()' will update all R data files (.Rda or .rda) in the data directory inside your nigeriaPITaudit package directory.
+
+This will update all R data files in the data directory, including fmc2017.Rda if it exists.
+
+Note
+Make sure that the fmc2017.Rda file is in the correct format (i.e., an R data file saved using save()) and is located in the data directory.
+
+'checkRdaFiles()': Checks if .rda files are properly formatted and can be loaded correctly.
 
 ```{r, eval=FALSE}
 # tools::checkRdaFiles("path/to/dataset.rda")

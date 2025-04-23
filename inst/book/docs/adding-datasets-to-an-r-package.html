@@ -23,7 +23,7 @@
 <meta name="author" content="Lawrence Daniel Garba" />
 
 
-<meta name="date" content="2025-04-09" />
+<meta name="date" content="2025-04-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -168,24 +168,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Before adding datasets to an R package, the appropriate directories must be created. These directories help organize raw, processed, and related scripts within the package structure.</p>
 <p><strong>4.1.1 Using usethis::use_data()</strong></p>
 <p>The simplest way to create the data/ directory in an R package is by using the usethis package. The following function automatically generates the data/ directory if it does not exist:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="adding-datasets-to-an-r-package.html#cb15-1" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_data</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="adding-datasets-to-an-r-package.html#cb19-1" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_data</span>()</span></code></pre></div>
 <p>This function is particularly useful when working within an R package, ensuring that the data/ directory follows best practices for package development.</p>
 <p><strong>4.1.2 Creating a Directory Manually</strong></p>
 <p>Alternatively, you can create a directory manually before saving the dataset using the dir.create() function. This allows for more control over the structure and ensures that the directory exists before attempting to store data.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="adding-datasets-to-an-r-package.html#cb16-1" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">&quot;data&quot;</span>, <span class="at">showWarnings =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="adding-datasets-to-an-r-package.html#cb20-1" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">&quot;data&quot;</span>, <span class="at">showWarnings =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <p>The argument showWarnings = FALSE is used to suppress any warning messages in case the directory already exists. This prevents unnecessary warnings while ensuring that the directory is created only when needed.</p>
 <p><strong>4.1.3 Using fs::dir_create() (from the fs package)</strong></p>
 <p>The fs package provides a more modern and reliable way to create directories:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="adding-datasets-to-an-r-package.html#cb17-1" tabindex="-1"></a>fs<span class="sc">::</span><span class="fu">dir_create</span>(<span class="st">&quot;data&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="adding-datasets-to-an-r-package.html#cb21-1" tabindex="-1"></a>fs<span class="sc">::</span><span class="fu">dir_create</span>(<span class="st">&quot;data&quot;</span>)</span></code></pre></div>
 <p>This method is useful because it:</p>
 <p>• Creates parent directories if they don’t exist.</p>
 <p>• Works consistently across different operating systems.</p>
 <p>• Returns a more structured output.</p>
 <p><strong>4.1.4 Using Base R with if (!dir.exists())</strong></p>
 <p>Instead of just dir.create(), you can first check if the directory exists before creating it:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="adding-datasets-to-an-r-package.html#cb18-1" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">dir.exists</span>(<span class="st">&quot;data&quot;</span>)) {</span>
-<span id="cb18-2"><a href="adding-datasets-to-an-r-package.html#cb18-2" tabindex="-1"></a>  <span class="fu">dir.create</span>(<span class="st">&quot;data&quot;</span>)</span>
-<span id="cb18-3"><a href="adding-datasets-to-an-r-package.html#cb18-3" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="adding-datasets-to-an-r-package.html#cb22-1" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">dir.exists</span>(<span class="st">&quot;data&quot;</span>)) {</span>
+<span id="cb22-2"><a href="adding-datasets-to-an-r-package.html#cb22-2" tabindex="-1"></a>  <span class="fu">dir.create</span>(<span class="st">&quot;data&quot;</span>)</span>
+<span id="cb22-3"><a href="adding-datasets-to-an-r-package.html#cb22-3" tabindex="-1"></a>}</span></code></pre></div>
 <p>This ensures that the function only creates the directory if it doesn’t already exist, preventing unnecessary warnings.</p>
 <p>By using these methods, you can properly set up directories to store and manage datasets within your R package. In the next sections, we will explore how to add datasets and choose the appropriate storage formats.</p>
 <p><strong>4.2 Methods of Adding Datasets to an R Package</strong></p>
@@ -193,38 +193,38 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The method for adding data to an R package depends on its source. If the dataset is local (already on your computer), it can be directly included in the package. On the other hand, if you need to download data from an online source, additional steps may be required to ensure proper integration.</p>
 <p><strong>4.2.1 Moving Local Files to data/</strong></p>
 <p>If you already have a dataset on your local computer (e.g., fmc2017.xlsx) that you want to add to your R package structure, first, you need to locate the existing data file and load the data into R:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="adding-datasets-to-an-r-package.html#cb19-1" tabindex="-1"></a>fmc2017 <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">&quot;C:/Users/Lawrence Daniel/Downloads/fmc2017.xlsx&quot;</span>, <span class="at">sheet =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="adding-datasets-to-an-r-package.html#cb23-1" tabindex="-1"></a>fmc2017 <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">&quot;C:/Users/Lawrence Daniel/Downloads/fmc2017.xlsx&quot;</span>, <span class="at">sheet =</span> <span class="dv">1</span>)</span></code></pre></div>
 <p>This line of code reads an Excel file named fmc2017.xlsx from a specific location on my computer (in this case, the Downloads folder under the Users/username directory). The data from the first sheet of the Excel file is then loaded into R and assigned to a variable called fmc2017 for further use and manipulation.</p>
 <p>After the data is loaded into R, you can proceed to the next steps for saving it and integrating it into your R package structure, which we will cover in Section</p>
 <p><strong>4.2.2 Copying Files Directly into data/ </strong></p>
 <p>Sometimes, you may want to copy your data into your target directory using the following code:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="adding-datasets-to-an-r-package.html#cb20-1" tabindex="-1"></a><span class="fu">file.copy</span>(<span class="st">&quot;C:/Users/Lawrence Daniel/Downloads/infosightsConsulting.xlsx&quot;</span>, <span class="st">&quot;data/infosightsConsulting.xlsx&quot;</span>, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="adding-datasets-to-an-r-package.html#cb24-1" tabindex="-1"></a><span class="fu">file.copy</span>(<span class="st">&quot;C:/Users/Lawrence Daniel/Downloads/infosightsConsulting.xlsx&quot;</span>, <span class="st">&quot;data/infosightsConsulting.xlsx&quot;</span>, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p>The argument overwrite = TRUE is used when you want to update or replace an existing dataset in data/..</p>
 <p><strong>4.2.3 Alternative Method: Using fs::file_copy()</strong></p>
 <p>Alternatively, you can use the fs package to copy files, which may offer more robust and platform-independent functionality. Here’s how you would do it:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="adding-datasets-to-an-r-package.html#cb21-1" tabindex="-1"></a>fs<span class="sc">::</span><span class="fu">file_copy</span>(<span class="st">&quot;C:/Users/Lawrence Daniel/Downloads/infosightsConsulting.csv&quot;</span>, <span class="st">&quot;data/infosightsConsulting.csv&quot;</span>, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="adding-datasets-to-an-r-package.html#cb25-1" tabindex="-1"></a>fs<span class="sc">::</span><span class="fu">file_copy</span>(<span class="st">&quot;C:/Users/Lawrence Daniel/Downloads/infosightsConsulting.csv&quot;</span>, <span class="st">&quot;data/infosightsConsulting.csv&quot;</span>, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p>This method behaves similarly to file.copy() but is part of the fs package, which is known for handling file operations more efficiently across different operating systems.</p>
 <p><strong>4.2.2 Online Sources (download.file())</strong></p>
 <p>If the dataset is hosted online (e.g., from a website or repository), you can download it directly into your R package:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="adding-datasets-to-an-r-package.html#cb22-1" tabindex="-1"></a><span class="fu">download.file</span>(<span class="st">&quot;https://example.com/dataset.xlsx&quot;</span>, <span class="st">&quot;data/dataset.xlsx&quot;</span>, <span class="at">mode =</span> <span class="st">&quot;wb&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="adding-datasets-to-an-r-package.html#cb26-1" tabindex="-1"></a><span class="fu">download.file</span>(<span class="st">&quot;https://example.com/dataset.xlsx&quot;</span>, <span class="st">&quot;data/dataset.xlsx&quot;</span>, <span class="at">mode =</span> <span class="st">&quot;wb&quot;</span>)</span></code></pre></div>
 <p>Or:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="adding-datasets-to-an-r-package.html#cb23-1" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;https://example.com/dataset.csv&quot;</span></span>
-<span id="cb23-2"><a href="adding-datasets-to-an-r-package.html#cb23-2" tabindex="-1"></a>destfile <span class="ot">&lt;-</span> <span class="st">&quot;inst/extdata/dataset.csv&quot;</span></span>
-<span id="cb23-3"><a href="adding-datasets-to-an-r-package.html#cb23-3" tabindex="-1"></a><span class="fu">download.file</span>(url, destfile)</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="adding-datasets-to-an-r-package.html#cb27-1" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;https://example.com/dataset.csv&quot;</span></span>
+<span id="cb27-2"><a href="adding-datasets-to-an-r-package.html#cb27-2" tabindex="-1"></a>destfile <span class="ot">&lt;-</span> <span class="st">&quot;inst/extdata/dataset.csv&quot;</span></span>
+<span id="cb27-3"><a href="adding-datasets-to-an-r-package.html#cb27-3" tabindex="-1"></a><span class="fu">download.file</span>(url, destfile)</span></code></pre></div>
 <p>For datasets requiring authentication or API requests, use the httr or any other R package:</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="adding-datasets-to-an-r-package.html#cb24-1" tabindex="-1"></a><span class="fu">library</span>(httr)</span>
-<span id="cb24-2"><a href="adding-datasets-to-an-r-package.html#cb24-2" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;https://api.example.com/data&quot;</span></span>
-<span id="cb24-3"><a href="adding-datasets-to-an-r-package.html#cb24-3" tabindex="-1"></a>response <span class="ot">&lt;-</span> <span class="fu">GET</span>(url)</span>
-<span id="cb24-4"><a href="adding-datasets-to-an-r-package.html#cb24-4" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">content</span>(response, <span class="st">&quot;parsed&quot;</span>)  <span class="co"># Convert JSON response to R object</span></span>
-<span id="cb24-5"><a href="adding-datasets-to-an-r-package.html#cb24-5" tabindex="-1"></a><span class="fu">save</span>(data, <span class="at">file =</span> <span class="st">&quot;data/data.rda&quot;</span>)  <span class="co"># Save the processed data</span></span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="adding-datasets-to-an-r-package.html#cb28-1" tabindex="-1"></a><span class="fu">library</span>(httr)</span>
+<span id="cb28-2"><a href="adding-datasets-to-an-r-package.html#cb28-2" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;https://api.example.com/data&quot;</span></span>
+<span id="cb28-3"><a href="adding-datasets-to-an-r-package.html#cb28-3" tabindex="-1"></a>response <span class="ot">&lt;-</span> <span class="fu">GET</span>(url)</span>
+<span id="cb28-4"><a href="adding-datasets-to-an-r-package.html#cb28-4" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">content</span>(response, <span class="st">&quot;parsed&quot;</span>)  <span class="co"># Convert JSON response to R object</span></span>
+<span id="cb28-5"><a href="adding-datasets-to-an-r-package.html#cb28-5" tabindex="-1"></a><span class="fu">save</span>(data, <span class="at">file =</span> <span class="st">&quot;data/data.rda&quot;</span>)  <span class="co"># Save the processed data</span></span></code></pre></div>
 <p><strong>4.3 Saving Datasets as R Objects (.rda, .RDS)</strong></p>
 <p>After adding datasets to your R package, it is crucial to save them in the correct format so they can be easily accessed and used within the package. R provides two primary formats for saving datasets: .rda and .RDS. These formats are specifically used to store R objects (like data frames, lists, etc.) for later use, and each has its specific use cases.</p>
 <p>Before saving any dataset, ensure that the data has been loaded into R as discussed in Section 4.2.1. In our example, we loaded the fmc2017 dataset from a local file into R using the following code:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="adding-datasets-to-an-r-package.html#cb25-1" tabindex="-1"></a>fmc2017 <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">&quot;C:/Users/Lawrence Daniel/Downloads/fmc2017.xlsx&quot;</span>, <span class="at">sheet =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="adding-datasets-to-an-r-package.html#cb29-1" tabindex="-1"></a>fmc2017 <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">&quot;C:/Users/Lawrence Daniel/Downloads/fmc2017.xlsx&quot;</span>, <span class="at">sheet =</span> <span class="dv">1</span>)</span></code></pre></div>
 <p>Once the dataset is loaded, you can proceed to save it in the appropriate format. Let’s explore the methods to save datasets effectively in .rda and .RDS formats.</p>
 <p><strong>4.3.1 Using usethis::use_data() for Saving Datasets</strong></p>
 <p>One of the most common methods to save datasets in an R package is by using the usethis::use_data() function. This function is designed specifically to save R objects in the data/ directory of your R package in .rda format. Here’s an example of how you can use it:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="adding-datasets-to-an-r-package.html#cb26-1" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_data</span>(fmc2017, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="adding-datasets-to-an-r-package.html#cb30-1" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_data</span>(fmc2017, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p>This line of code saves the fmc2017 dataset into the data/ directory of your R package as an .rda file. The overwrite = TRUE argument ensures that any existing dataset with the same name is replaced.</p>
 <p><strong>4.3.2 Features of .rda files:</strong></p>
 <p>• .rda files are often used for storing multiple R objects in one file. You can store several datasets together, making it convenient for packaging them.</p>
@@ -232,21 +232,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>• These files are typically used for datasets that are part of an R package and are loaded automatically with the package.</p>
 <p><strong>4.3.3 Saving Multiple R Objects Using .rda</strong></p>
 <p>You can save multiple R objects in a single .rda file. Let’s say we have two datasets, fmc2017 and infosightsConsulting, and we want to save them together in a single .rda file. Here’s how you can do that:</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="adding-datasets-to-an-r-package.html#cb27-1" tabindex="-1"></a><span class="fu">save</span>(fmc2017, infosightsConsulting, <span class="at">file =</span> <span class="st">&quot;data/datasets.rda&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="adding-datasets-to-an-r-package.html#cb31-1" tabindex="-1"></a><span class="fu">save</span>(fmc2017, infosightsConsulting, <span class="at">file =</span> <span class="st">&quot;data/datasets.rda&quot;</span>)</span></code></pre></div>
 <p>This line of code saves both the fmc2017 and infosightsConsulting datasets into a single .rda file called datasets.rda in the data/ directory. You can then load this file later and access both datasets in one go.</p>
 <p><strong>4.3.4 Features of .rda files for Multiple Objects:</strong></p>
 <p>• .rda allows you to bundle multiple R objects (datasets, lists, etc.) into a single file.</p>
 <p>• This is especially useful when you need to package several related datasets together, as it reduces the number of files in your project.</p>
 <p><strong>4.3.5 Saving Data Using save() for .rda Files</strong></p>
 <p>Alternatively, you can save datasets using the save() function. This function is more general and can save one or more R objects into a binary .rda file.</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="adding-datasets-to-an-r-package.html#cb28-1" tabindex="-1"></a><span class="fu">save</span>(fmc2017, <span class="at">file =</span> <span class="st">&quot;data/fmc2017.rda&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="adding-datasets-to-an-r-package.html#cb32-1" tabindex="-1"></a><span class="fu">save</span>(fmc2017, <span class="at">file =</span> <span class="st">&quot;data/fmc2017.rda&quot;</span>)</span></code></pre></div>
 <p>This command will save the fmc2017 dataset to the data/ directory as an .rda file. The .rda format is preferred when you want to bundle multiple R objects into one file and use them within your package.</p>
 <p><strong>4.3.6 Features of save():</strong></p>
 <p>• You can save multiple objects in one .rda file by passing them as arguments to the save() function.</p>
 <p>• It is more flexible than usethis::use_data() because it allows you to save any object, not just datasets.</p>
 <p><strong>4.3.7 Saving Data Using saveRDS() for .RDS Files</strong></p>
 <p>Another method for saving datasets is by using the saveRDS() function, which saves a single R object to a .RDS file. Unlike .rda files, .RDS files are designed for saving a single object. The readRDS() function is used to load these objects back into R.</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="adding-datasets-to-an-r-package.html#cb29-1" tabindex="-1"></a><span class="fu">saveRDS</span>(fmc2017, <span class="at">file =</span> <span class="st">&quot;data/fmc2017.rds&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="adding-datasets-to-an-r-package.html#cb33-1" tabindex="-1"></a><span class="fu">saveRDS</span>(fmc2017, <span class="at">file =</span> <span class="st">&quot;data/fmc2017.rds&quot;</span>)</span></code></pre></div>
 <p>This will save the fmc2017 dataset as an .RDS file in the data/ directory. You can later load it using readRDS().</p>
 <p><strong>4.3.7.1 Features of .RDS files:</strong></p>
 <p>• .RDS files store a single R object, making them ideal for storing individual datasets.</p>
@@ -257,9 +257,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><strong>4.3.9 Using Other File Formats</strong></p>
 <p>While .rda and .RDS are the primary formats used for saving R objects within packages, R can also work with other formats depending on your needs:</p>
 <p>• CSV Files: If you prefer to save your dataset in a more universal format, you can save your dataset as a CSV file using write.csv(). While this is not an R-specific format, it is widely used for sharing data.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="adding-datasets-to-an-r-package.html#cb30-1" tabindex="-1"></a><span class="fu">write.csv</span>(fmc2017, <span class="at">file =</span> <span class="st">&quot;data/fmc2017.csv&quot;</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="adding-datasets-to-an-r-package.html#cb34-1" tabindex="-1"></a><span class="fu">write.csv</span>(fmc2017, <span class="at">file =</span> <span class="st">&quot;data/fmc2017.csv&quot;</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <p>• Excel Files: If your dataset is more complex and needs to be shared as an Excel file, you can use the write.xlsx() function from the openxlsx package to save your data.</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="adding-datasets-to-an-r-package.html#cb31-1" tabindex="-1"></a>openxlsx<span class="sc">::</span><span class="fu">write.xlsx</span>(fmc2017, <span class="st">&quot;data/fmc2017.xlsx&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="adding-datasets-to-an-r-package.html#cb35-1" tabindex="-1"></a>openxlsx<span class="sc">::</span><span class="fu">write.xlsx</span>(fmc2017, <span class="st">&quot;data/fmc2017.xlsx&quot;</span>)</span></code></pre></div>
 <p>These formats can be useful for exporting data outside of R, but for R package development, .rda and .RDS remain the most efficient and flexible formats.</p>
 <p><strong>4.4 Choosing the Right Location for Your Data</strong></p>
 <p>When developing an R package or project, selecting the right location for storing data is critical for both functionality and performance. This section discusses the various storage locations within an R package, the purpose of each, and the best practices for organizing your datasets.</p>
@@ -267,12 +267,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The data/ directory is the primary location for storing processed data that will be included in the R package for public use. This is the most common place for small-to-medium datasets that you want to make available to the users of your package.</p>
 <p>• Purpose: The datasets stored here are loaded lazily by default, which means they are not loaded into memory until they are explicitly needed. This reduces memory consumption and allows for faster loading of the package itself.</p>
 <p>• How to Save Data: To save an object to this directory, use the usethis::use_data() function. For example:</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="adding-datasets-to-an-r-package.html#cb32-1" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_data</span>(my_dataset, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="adding-datasets-to-an-r-package.html#cb36-1" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_data</span>(my_dataset, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p>This command will save the dataset as data/my_dataset.rda.</p>
 <p>• How to Access Data: Once the package is installed, users can load the data using the data() function:</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="adding-datasets-to-an-r-package.html#cb33-1" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;my_dataset&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="adding-datasets-to-an-r-package.html#cb37-1" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;my_dataset&quot;</span>)</span></code></pre></div>
 <p>To inspect the dataset, users can use:</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="adding-datasets-to-an-r-package.html#cb34-1" tabindex="-1"></a><span class="fu">head</span>(my_dataset)</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="adding-datasets-to-an-r-package.html#cb38-1" tabindex="-1"></a><span class="fu">head</span>(my_dataset)</span></code></pre></div>
 <p>• Why This Location Exists:</p>
 <p>• Lazy loading: Datasets are only loaded into memory when needed.</p>
 <p>• User-friendly: The data() function makes it easy for users to access datasets.</p>
@@ -284,9 +284,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The data-raw/ directory is used for storing raw data files before they are cleaned and processed. This directory is meant for developers to preprocess data before it is stored in the data/ directory.</p>
 <p>• Purpose: The data-raw/ directory should contain scripts for data cleaning and transformation, as well as raw data files like .csv, .json, or .xlsx.</p>
 <p>• How to Save Data: Once the raw data has been processed, use the usethis::use_data() function to save the cleaned dataset to data/:</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="adding-datasets-to-an-r-package.html#cb35-1" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_data</span>(cleaned_fmc2017, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="adding-datasets-to-an-r-package.html#cb39-1" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_data</span>(cleaned_fmc2017, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p>• How to Access Raw Data: The raw data is not bundled in the final package, so developers need to manually read the data files for preprocessing:</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="adding-datasets-to-an-r-package.html#cb36-1" tabindex="-1"></a><span class="fu">read.csv</span>(<span class="st">&quot;data-raw/raw_data.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="adding-datasets-to-an-r-package.html#cb40-1" tabindex="-1"></a><span class="fu">read.csv</span>(<span class="st">&quot;data-raw/raw_data.csv&quot;</span>)</span></code></pre></div>
 <p>• Why This Location Exists:</p>
 <p>• For reproducibility: Storing the raw data and the preprocessing code ensures that the data can be recreated in the future.</p>
 <p>• For preprocessing: Raw data needs to be cleaned or transformed before it is included in the package.</p>
@@ -299,8 +299,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>• Purpose: The inst/extdata/ directory is good for storing large datasets, or files that need to be manually accessed by users.</p>
 <p>• How to Save Data: Store external data files such as .csv, .json, .xlsx, etc., inside the inst/extdata/ directory.</p>
 <p>• How to Access Data: Users can read files from inst/extdata/ using system.file() to get the full path:</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="adding-datasets-to-an-r-package.html#cb37-1" tabindex="-1"></a>file_path <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;my_data.csv&quot;</span>, <span class="at">package =</span> <span class="st">&quot;myPackage&quot;</span>)</span>
-<span id="cb37-2"><a href="adding-datasets-to-an-r-package.html#cb37-2" tabindex="-1"></a><span class="fu">read.csv</span>(file_path)</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="adding-datasets-to-an-r-package.html#cb41-1" tabindex="-1"></a>file_path <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;my_data.csv&quot;</span>, <span class="at">package =</span> <span class="st">&quot;myPackage&quot;</span>)</span>
+<span id="cb41-2"><a href="adding-datasets-to-an-r-package.html#cb41-2" tabindex="-1"></a><span class="fu">read.csv</span>(file_path)</span></code></pre></div>
 <p>• Why This Location Exists:</p>
 <p>• Good for large datasets: Since the data is not lazily loaded, it is suitable for large datasets that users can access directly.</p>
 <p>• Allows updates: Users can modify the external data without rebuilding the entire package.</p>
@@ -312,11 +312,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The R/ directory is intended for storing data as R code, defining datasets directly within R scripts. This method is suitable for small, simple datasets that do not require complex preprocessing or storage.</p>
 <p>• Purpose: The R/ directory allows you to generate datasets dynamically using R code. It’s great for small datasets or when datasets are generated by functions rather than being loaded from external files.</p>
 <p>• How to Save Data: Define the dataset in an R script inside the R/ directory:</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="adding-datasets-to-an-r-package.html#cb38-1" tabindex="-1"></a>my_dataset <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb38-2"><a href="adding-datasets-to-an-r-package.html#cb38-2" tabindex="-1"></a>  <span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,</span>
-<span id="cb38-3"><a href="adding-datasets-to-an-r-package.html#cb38-3" tabindex="-1"></a>  <span class="at">name =</span> <span class="fu">c</span>(<span class="st">&quot;Alice&quot;</span>, <span class="st">&quot;Bob&quot;</span>, <span class="st">&quot;Charlie&quot;</span>, <span class="st">&quot;David&quot;</span>, <span class="st">&quot;Emma&quot;</span>),</span>
-<span id="cb38-4"><a href="adding-datasets-to-an-r-package.html#cb38-4" tabindex="-1"></a>  <span class="at">salary =</span> <span class="fu">c</span>(<span class="dv">5000</span>, <span class="dv">6000</span>, <span class="dv">7000</span>, <span class="dv">7200</span>, <span class="dv">5500</span>)</span>
-<span id="cb38-5"><a href="adding-datasets-to-an-r-package.html#cb38-5" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="adding-datasets-to-an-r-package.html#cb42-1" tabindex="-1"></a>my_dataset <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb42-2"><a href="adding-datasets-to-an-r-package.html#cb42-2" tabindex="-1"></a>  <span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,</span>
+<span id="cb42-3"><a href="adding-datasets-to-an-r-package.html#cb42-3" tabindex="-1"></a>  <span class="at">name =</span> <span class="fu">c</span>(<span class="st">&quot;Alice&quot;</span>, <span class="st">&quot;Bob&quot;</span>, <span class="st">&quot;Charlie&quot;</span>, <span class="st">&quot;David&quot;</span>, <span class="st">&quot;Emma&quot;</span>),</span>
+<span id="cb42-4"><a href="adding-datasets-to-an-r-package.html#cb42-4" tabindex="-1"></a>  <span class="at">salary =</span> <span class="fu">c</span>(<span class="dv">5000</span>, <span class="dv">6000</span>, <span class="dv">7000</span>, <span class="dv">7200</span>, <span class="dv">5500</span>)</span>
+<span id="cb42-5"><a href="adding-datasets-to-an-r-package.html#cb42-5" tabindex="-1"></a>)</span></code></pre></div>
 <p>• How to Access Data: The dataset is available once the package is loaded: my_dataset</p>
 <p>• Why This Location Exists:</p>
 <p>• Dynamic data generation: Useful for datasets that need to be generated on the fly or based on functions.</p>
@@ -329,11 +329,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The R/sysdata.rda file is used to store internal datasets that are not meant to be accessed by users directly. These datasets are only available within package functions.</p>
 <p>• Purpose: The sysdata.rda file is used for precomputed data, lookup tables, or internal information needed by functions within the package.</p>
 <p>• How to Save Data: Store the dataset using usethis::use_data() with the internal = TRUE argument:</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="adding-datasets-to-an-r-package.html#cb39-1" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_data</span>(my_internal_dataset, <span class="at">internal =</span> <span class="cn">TRUE</span>, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="adding-datasets-to-an-r-package.html#cb43-1" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_data</span>(my_internal_dataset, <span class="at">internal =</span> <span class="cn">TRUE</span>, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p>• How to Access Data: The dataset is available only within package functions:</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="adding-datasets-to-an-r-package.html#cb40-1" tabindex="-1"></a>my_function <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
-<span id="cb40-2"><a href="adding-datasets-to-an-r-package.html#cb40-2" tabindex="-1"></a>  <span class="fu">return</span>(my_internal_dataset)</span>
-<span id="cb40-3"><a href="adding-datasets-to-an-r-package.html#cb40-3" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="adding-datasets-to-an-r-package.html#cb44-1" tabindex="-1"></a>my_function <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb44-2"><a href="adding-datasets-to-an-r-package.html#cb44-2" tabindex="-1"></a>  <span class="fu">return</span>(my_internal_dataset)</span>
+<span id="cb44-3"><a href="adding-datasets-to-an-r-package.html#cb44-3" tabindex="-1"></a>}</span></code></pre></div>
 <p>• Why This Location Exists:</p>
 <p>• For internal use only: Keeps sensitive or proprietary data hidden from users.</p>
 <p>• Prevents clutter: Keeps the user environment clean by not exposing internal datasets.</p>
@@ -352,26 +352,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Ensuring that your data is correctly stored and accessible within your R package is a crucial part of the development process. This section will guide you through the steps to verify that the data has been stored correctly in your package and how to load it for use or troubleshooting.</p>
 <p><strong>4.6.1 Check if the Data is Properly Stored</strong></p>
 <p>When developing an R package, the data that you store within the data/ directory should be accessible and correctly formatted. You can verify this by running a few simple commands to ensure the data exists in the expected location. Checking for Stored Data: You can use the data() function to list all available datasets in your package. For instance, if your package is called nigeriaPITaudit, you can use:</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="adding-datasets-to-an-r-package.html#cb41-1" tabindex="-1"></a><span class="fu">data</span>(<span class="at">package =</span> <span class="st">&quot;nigeriaPITaudit&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="adding-datasets-to-an-r-package.html#cb45-1" tabindex="-1"></a><span class="fu">data</span>(<span class="at">package =</span> <span class="st">&quot;nigeriaPITaudit&quot;</span>)</span></code></pre></div>
 <p>This command will list all datasets bundled with the package, including their names, descriptions, and locations. If fmc2017.rda is correctly stored in the data/ folder, it should appear in the list.</p>
 <p>Alternatively, you can use the list.files() function to confirm the physical presence of your dataset file in the correct directory. Specifically, this will check the data/ folder inside your package’s structure:</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="adding-datasets-to-an-r-package.html#cb42-1" tabindex="-1"></a><span class="fu">list.files</span>(<span class="st">&quot;data&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="adding-datasets-to-an-r-package.html#cb46-1" tabindex="-1"></a><span class="fu">list.files</span>(<span class="st">&quot;data&quot;</span>)</span></code></pre></div>
 <p>If the dataset fmc2017.rda is present, it should be listed. If it is missing, you may need to troubleshoot why the dataset wasn’t properly saved.</p>
 <p><strong>4.6.2 Re-run in a Clean Environment</strong></p>
 <p>When developing a package, it is important to ensure that the data is properly saved and loaded across environments. This is particularly important when you want to ensure that everything functions correctly in a clean, fresh setup.</p>
 <p>To simulate this, you can create a clean environment by using the devtools::check() function, which checks your package’s correctness and ensures that the data files are stored properly. The clean = TRUE argument ensures that you’re testing the package in a fresh environment, free from any previous session’s variables.</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="adding-datasets-to-an-r-package.html#cb43-1" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">check</span>(<span class="at">clean =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="adding-datasets-to-an-r-package.html#cb47-1" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">check</span>(<span class="at">clean =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p>Running this command checks your package’s structure, the documentation, the data files, and more, to ensure that everything works correctly in a clean environment. If everything is set up properly, fmc2017.rda should be accessible as part of your package’s dataset when you load the package in a new R session.</p>
 <p><strong>4.6.3 Accessing the Data After Check</strong></p>
 <p>After verifying that the data has been stored and the package works correctly in a clean environment, you can proceed to load the data into your R session. The easiest way to load data from the data/ directory is by using the data() function:</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="adding-datasets-to-an-r-package.html#cb44-1" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;fmc2017&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="adding-datasets-to-an-r-package.html#cb48-1" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;fmc2017&quot;</span>)</span></code></pre></div>
 <p>This command loads the dataset into your current environment. Once the data is loaded, you can inspect it using standard R functions like head(), summary(), or str() to ensure it is in the correct format:</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="adding-datasets-to-an-r-package.html#cb45-1" tabindex="-1"></a><span class="fu">head</span>(fmc2017)</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="adding-datasets-to-an-r-package.html#cb49-1" tabindex="-1"></a><span class="fu">head</span>(fmc2017)</span></code></pre></div>
 <p><strong>4.6.4 Troubleshooting Data Loading Issues</strong></p>
 <p>If you are unable to load the dataset as expected, here are a few common troubleshooting steps to consider:</p>
 <p>• Check File Path: Ensure that the dataset is located in the data/ folder within your package’s directory. The list.files(“data”) command should confirm the presence of your dataset file (fmc2017.rda).</p>
 <p>• Re-run use_data(): If the dataset isn’t appearing, make sure you’ve saved the data properly using the usethis::use_data() function. This function should be used to save your dataset into the package:</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="adding-datasets-to-an-r-package.html#cb46-1" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_data</span>(fmc2017, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="adding-datasets-to-an-r-package.html#cb50-1" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_data</span>(fmc2017, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p>• Check for Errors: During development, errors may occur if the data file is corrupted, or if you attempted to load data without calling use_data() to properly store it. Re-run the devtools::check() function to ensure that the package structure is intact.</p>
 <p><strong>4.6.5 Conclusion</strong></p>
 <p>Why Checking and Loading Data is Important: Regularly checking that your data is properly stored ensures the reproducibility of your R package. It also allows users who install your package to access the data seamlessly without issues. Verify Clean Package Installation: Using the devtools::check(clean = TRUE) function ensures that your package works as expected in a clean environment. This is essential for confirming that your data and package setup are correct, especially if you are preparing to share your package with others.</p>

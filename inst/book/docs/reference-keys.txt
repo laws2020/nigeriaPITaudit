@@ -5,3 +5,5 @@ preparing-your-datasets-for-an-r-package
 adding-datasets-to-an-r-package
 documenting-your-datasets
 best-practices-for-including-datasets-in-r-packages
+read-the-excel-file
+save-the-data-as-an-r-data-file

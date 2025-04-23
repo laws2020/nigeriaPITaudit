@@ -180,16 +180,6 @@ kable(result, caption = "Summary of Personal Income Tax Audit")
 ```
 
 
-### Chapter 4: Preserving the Knowledge
-
-To ensure that our findings remain accessible, we store the results in an **Excel file**:
-
-```{r}
-library(writexl)
-write_xlsx(summary_result, "C:/Users/Lawrence Daniel/Downloads/practiceAudit.xlsx")
-
-```
-
 And so, my journey from **IRS auditor** to **R package developer** comes full circle. With `nigeriaPITaudit`, anyone can now conduct payroll audits effortlessly.
 
 ### cheat sheet 
