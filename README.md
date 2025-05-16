@@ -1,5 +1,12 @@
+
 ## **nigeriaPITaudit**
 
+<figure>
+<img
+src="https://img.shields.io/github/license/laws2020/nigeriaPITaudit"
+alt="GitHub" />
+<figcaption aria-hidden="true">GitHub</figcaption>
+</figure>
 
 #### A Comprehensive Toolkit for Auditing Personal Income Tax in Nigeria
 
@@ -27,13 +34,17 @@ Ensure that R (version 4.0 or higher) and RStudio are installed.
 
 #### **Step 1: Install `devtools` (if not already installed)**
 
-    if (!requireNamespace("devtools", quietly = TRUE)) {
-      install.packages("devtools")
-    }
+``` r
+if (!requireNamespace("devtools", quietly = TRUE)) {
+  install.packages("devtools")
+}
+```
 
 ### Install nigeriaPITaudit from GitHub
 
-    # devtools::install_github("laws2020/nigeriaPITaudit/nigeriaPITaudit")
+``` r
+# devtools::install_github("laws2020/nigeriaPITaudit")
+```
 
 ## The Birth of `nigeriaPITaudit`
 
@@ -69,18 +80,24 @@ payroll auditing in R!
 To embark on this journey, first, we must summon the power of
 nigeriaPITaudit package:
 
-    library(nigeriaPITaudit)
-    library(knitr)
+``` r
+library(nigeriaPITaudit)
+library(knitr)
+```
 
 ### Here comes the Payroll Data
 
 We retrieve the payroll data hidden in the nigeriaPITaudit archives:
 
-    data("fmc2017")
+``` r
+data("fmc2017")
+```
 
 Before proceeding, let’s inspect the structure of the dataset:
 
-    str(fmc2017)
+``` r
+str(fmc2017)
+```
 
     ## tibble [1,148 × 14] (S3: tbl_df/tbl/data.frame)
     ##  $ S/N               : num [1:1148] 1 2 3 4 5 6 7 8 9 10 ...
@@ -93,225 +110,110 @@ Before proceeding, let’s inspect the structure of the dataset:
     ##  $ other_allowances  : num [1:1148] 891528 0 0 0 0 ...
     ##  $ Overtime          : num [1:1148] 0 0 0 0 0 0 0 0 0 0 ...
     ##  $ Shifting          : num [1:1148] NA NA NA NA NA NA NA NA NA NA ...
-    ##  $ Speacilist        : num [1:1148] NA 169327 169327 169327 169327 ...
+    ##  $ Specialist        : num [1:1148] NA 169327 169327 169327 169327 ...
     ##  $ Hazard_Allowance  : num [1:1148] 5000 5000 5000 5000 5000 5000 5000 5000 5000 5000 ...
     ##  $ Call_Allowance    : num [1:1148] 162680 162680 162680 162680 162680 ...
-    ##  $ Netpay            : num [1:1148] 1217203 802885 802885 802885 802885 ...
+    ##  $ GrossPay          : num [1:1148] 1217203 802885 802885 802885 802885 ...
 
 We now store it in a **data frame** for easy manipulation:
 
-    df <- fmc2017
+``` r
+df <- fmc2017
+```
 
 For the purpose of this examples we will like to limit the number of
 employee to audit, just 8 instead of the entire data we have here.
 
-    df <- fmc2017[c(1:8), ]
+``` r
+df <- fmc2017[c(1:8), ]
+```
 
 ### Calculating Salary Components
 
 To compute **gross salaries**, we use:
 
-    gross <- gross_salary(df$Basic_Salary, df$Teaching_Allowance, df$Salary_Arrears,
-                          df$other_allowances, df$Overtime, df$Shifting, df$Speacilist,
-                          df$Hazard_Allowance)
+``` r
+gross <- gross_salary(df$Basic_Salary, df$Teaching_Allowance, df$Salary_Arrears,
+                      df$other_allowances, df$Overtime, df$Shifting, df$Specialist,
+                      df$Hazard_Allowance)
+```
 
 ### Deductions: Shielding Employees from Tax Burden
 
 We then calculate key deductions:
 
-    pension <- pension_deduction(gross)
-    nhf <- nhf_deduction(gross)
-    nhis <- nhis_deduction(gross)
+``` r
+pension <- pension_deduction(gross)
+nhf <- nhf_deduction(df$Basic_Salary)
+nhis <- nhis_deduction(gross)
+```
 
 ### Computing Net Income and Tax Liabilities
 
 We determine the **gross income**:
 
-    grossIncome <- gross_income(gross, pension, nhis, nhf)
+``` r
+grossIncome <- gross_income(gross, pension, nhis, nhf)
+```
 
 Applying **consolidated relief**:
 
-    consolidatedRelief <- consolidated_relief(grossIncome, "monthly")
+``` r
+consolidatedRelief <- consolidated_relief(grossIncome, "monthly")
+```
 
 Total relief calculation:
 
-    totalRelief <- total_relief(pension, nhis, nhf, consolidatedRelief)
+``` r
+totalRelief <- total_relief(pension, nhis, nhf, consolidatedRelief)
+```
 
 Finally, we compute **taxable income** and **employee tax liability**:
 
-    taxableIncome <- taxable_income(gross, totalRelief)
-    employeeLiability <- employee_tax_liability(taxableIncome, "monthly")
+``` r
+taxableIncome <- taxable_income(gross, totalRelief)
+employeeLiability <- employee_tax_liability(taxableIncome, "monthly")
+```
 
 ### Chapter 3: The Final Report
 
 With all calculations complete, we compile a **comprehensive payroll tax
 report**:
 
-    dftaxreport <- data.frame(
-      Name = df$Name,  # Explicitly reference df$Name
-      gross, pension, nhis, nhf, grossIncome, consolidatedRelief, 
-      totalRelief, taxableIncome, employeeLiability
-      
-    )
+``` r
+dftaxreport <- data.frame(
+  Name = df$Name,  # Explicitly reference df$Name
+  gross, pension, nhis, nhf, grossIncome, consolidatedRelief, 
+  totalRelief, taxableIncome, employeeLiability
+  
+)
+```
 
-    columns_to_sum <- c("gross", "pension", "nhis", "nhf", "grossIncome", "consolidatedRelief", "totalRelief", "taxableIncome", "employeeLiability")
+``` r
+columns_to_sum <- c("gross", "pension", "nhis", "nhf", "grossIncome", "consolidatedRelief", "totalRelief", "taxableIncome", "employeeLiability")
+```
 
-    result <- sum_cols(dftaxreport, columns_to_sum)
+``` r
+result <- sum_cols(dftaxreport, columns_to_sum)
+```
 
 To summarize records:
 
-    kable(result, caption = "Summary of Personal Income Tax Audit")
+``` r
+kable(result, caption = "Summary of Personal Income Tax Audit")
+```
 
-<table>
-<caption>Summary of Personal Income Tax Audit</caption>
-<colgroup>
-<col style="width: 4%" />
-<col style="width: 15%" />
-<col style="width: 6%" />
-<col style="width: 6%" />
-<col style="width: 6%" />
-<col style="width: 7%" />
-<col style="width: 8%" />
-<col style="width: 13%" />
-<col style="width: 8%" />
-<col style="width: 9%" />
-<col style="width: 12%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;"></th>
-<th style="text-align: left;">Name</th>
-<th style="text-align: right;">gross</th>
-<th style="text-align: right;">pension</th>
-<th style="text-align: right;">nhis</th>
-<th style="text-align: right;">nhf</th>
-<th style="text-align: right;">grossIncome</th>
-<th style="text-align: right;">consolidatedRelief</th>
-<th style="text-align: right;">totalRelief</th>
-<th style="text-align: right;">taxableIncome</th>
-<th style="text-align: right;">employeeLiability</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">1</td>
-<td style="text-align: left;">DR. INUSA WIZA</td>
-<td style="text-align: right;">1054522.7</td>
-<td style="text-align: right;">84361.82</td>
-<td style="text-align: right;">52726.14</td>
-<td style="text-align: right;">26363.068</td>
-<td style="text-align: right;">891071.7</td>
-<td style="text-align: right;">194881.01</td>
-<td style="text-align: right;">358332.0</td>
-<td style="text-align: right;">696190.7</td>
-<td style="text-align: right;">149752.40</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">2</td>
-<td style="text-align: left;">DR. WANONYI I. KWALA</td>
-<td style="text-align: right;">640205.1</td>
-<td style="text-align: right;">51216.41</td>
-<td style="text-align: right;">32010.25</td>
-<td style="text-align: right;">16005.127</td>
-<td style="text-align: right;">540973.3</td>
-<td style="text-align: right;">124861.33</td>
-<td style="text-align: right;">224093.1</td>
-<td style="text-align: right;">416112.0</td>
-<td style="text-align: right;">82533.50</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">3</td>
-<td style="text-align: left;">DR. EKANEM E.D</td>
-<td style="text-align: right;">640205.1</td>
-<td style="text-align: right;">51216.41</td>
-<td style="text-align: right;">32010.25</td>
-<td style="text-align: right;">16005.127</td>
-<td style="text-align: right;">540973.3</td>
-<td style="text-align: right;">124861.33</td>
-<td style="text-align: right;">224093.1</td>
-<td style="text-align: right;">416112.0</td>
-<td style="text-align: right;">82533.50</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">4</td>
-<td style="text-align: left;">Dr. Arinze Egboga</td>
-<td style="text-align: right;">640205.1</td>
-<td style="text-align: right;">51216.41</td>
-<td style="text-align: right;">32010.25</td>
-<td style="text-align: right;">16005.127</td>
-<td style="text-align: right;">540973.3</td>
-<td style="text-align: right;">124861.33</td>
-<td style="text-align: right;">224093.1</td>
-<td style="text-align: right;">416112.0</td>
-<td style="text-align: right;">82533.50</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">5</td>
-<td style="text-align: left;">DR. MA’AJI THEOPHILUS</td>
-<td style="text-align: right;">640205.1</td>
-<td style="text-align: right;">51216.41</td>
-<td style="text-align: right;">32010.25</td>
-<td style="text-align: right;">16005.127</td>
-<td style="text-align: right;">540973.3</td>
-<td style="text-align: right;">124861.33</td>
-<td style="text-align: right;">224093.1</td>
-<td style="text-align: right;">416112.0</td>
-<td style="text-align: right;">82533.50</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">6</td>
-<td style="text-align: left;">DR. STEPHEN PAUL AJEH</td>
-<td style="text-align: right;">532105.8</td>
-<td style="text-align: right;">42568.47</td>
-<td style="text-align: right;">26605.29</td>
-<td style="text-align: right;">13302.646</td>
-<td style="text-align: right;">449629.4</td>
-<td style="text-align: right;">106592.55</td>
-<td style="text-align: right;">189069.0</td>
-<td style="text-align: right;">343036.9</td>
-<td style="text-align: right;">64995.48</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">7</td>
-<td style="text-align: left;">DR. ADOR JOHN UNIGA</td>
-<td style="text-align: right;">312468.2</td>
-<td style="text-align: right;">24997.45</td>
-<td style="text-align: right;">15623.41</td>
-<td style="text-align: right;">7811.704</td>
-<td style="text-align: right;">264035.6</td>
-<td style="text-align: right;">69473.79</td>
-<td style="text-align: right;">117906.4</td>
-<td style="text-align: right;">194561.8</td>
-<td style="text-align: right;">31524.62</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">8</td>
-<td style="text-align: left;">Dr. Aisha Mohammed</td>
-<td style="text-align: right;">312468.2</td>
-<td style="text-align: right;">24997.45</td>
-<td style="text-align: right;">15623.41</td>
-<td style="text-align: right;">7811.704</td>
-<td style="text-align: right;">264035.6</td>
-<td style="text-align: right;">69473.79</td>
-<td style="text-align: right;">117906.4</td>
-<td style="text-align: right;">194561.8</td>
-<td style="text-align: right;">31524.62</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Total</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: right;">4772385.3</td>
-<td style="text-align: right;">381790.82</td>
-<td style="text-align: right;">238619.26</td>
-<td style="text-align: right;">119309.632</td>
-<td style="text-align: right;">4032665.5</td>
-<td style="text-align: right;">939866.46</td>
-<td style="text-align: right;">1679586.2</td>
-<td style="text-align: right;">3092799.1</td>
-<td style="text-align: right;">607931.12</td>
-</tr>
-</tbody>
-</table>
+|       | Name                  |     gross |   pension |      nhis |       nhf | grossIncome | consolidatedRelief | totalRelief | taxableIncome | employeeLiability |
+|:------|:----------------------|----------:|----------:|----------:|----------:|------------:|-------------------:|------------:|--------------:|------------------:|
+| 1     | DR. INUSA WIZA        | 1054522.7 |  84361.82 |  52726.14 |  3009.164 |    914425.6 |          199551.79 |    339648.9 |      714873.8 |          71231.07 |
+| 2     | DR. WANONYI I. KWALA  |  640205.1 |  51216.41 |  32010.25 | 10706.250 |    546272.2 |          125921.10 |    219854.0 |      420351.1 |          34238.62 |
+| 3     | DR. EKANEM E.D        |  640205.1 |  51216.41 |  32010.25 | 10706.250 |    546272.2 |          125921.10 |    219854.0 |      420351.1 |          34238.62 |
+| 4     | Dr. Arinze Egboga     |  640205.1 |  51216.41 |  32010.25 | 10706.250 |    546272.2 |          125921.10 |    219854.0 |      420351.1 |          34238.62 |
+| 5     | DR. MA’AJI THEOPHILUS |  640205.1 |  51216.41 |  32010.25 | 10706.250 |    546272.2 |          125921.10 |    219854.0 |      420351.1 |          34238.62 |
+| 6     | DR. STEPHEN PAUL AJEH |  532105.8 |  42568.47 |  26605.29 |  8787.083 |    454145.0 |          107495.66 |    185456.5 |      346649.3 |          26131.43 |
+| 7     | DR. ADOR JOHN UNIGA   |  312468.2 |  24997.45 |  15623.41 |  3581.985 |    268265.3 |           70319.73 |    114522.6 |      197945.6 |          13856.19 |
+| 8     | Dr. Aisha Mohammed    |  312468.2 |  24997.45 |  15623.41 |  3581.985 |    268265.3 |           70319.73 |    114522.6 |      197945.6 |          13856.19 |
+| Total | NA                    | 4772385.3 | 381790.82 | 238619.26 | 61785.218 |   4090190.0 |          951371.31 |   1633566.6 |     3138818.6 |         262029.36 |
 
 Summary of Personal Income Tax Audit
 
@@ -321,36 +223,36 @@ audits effortlessly.
 
 ### cheat sheet
 
-*consolidated\_relief(gross\_income, period = “yearly”)*
+*consolidated_relief(gross_income, period = “yearly”)*
 
-*employee\_tax\_liability(taxable\_income, period = “yearly”)*
+*employee_tax_liability(taxable_income, period = “yearly”)*
 
-*fetch\_tax\_data(infile)*
+*fetch_tax_data(infile)*
 
-*gross\_income(gross\_salary, pension, nhis, nhf)*
+*gross_income(gross_salary, pension, nhis, nhf)*
 
-*gross\_salary(…)*
+*gross_salary(…)*
 
-*nhf\_deduction(gross\_salary, rate = 0.025)*
+*nhf_deduction(basic_salary, rate = 0.025)*
 
-*nhis\_deduction(gross\_salary, rate = 0.05)*
+*nhis_deduction(gross_salary, rate = 0.05)*
 
-*outstanding\_liability(actual\_employeeLiability, payment\_made)*
+*outstanding_liability(actual_employeeLiability, payment_made)*
 
-*penalty\_and\_interest(unpaid\_tax, due\_date, payment\_date,
-employer\_type = “corporate”)*
+*penalty_and_interest(unpaid_tax, due_date, payment_date, employer_type
+= “corporate”)*
 
-*pension\_deduction(gross\_salary, rate = 0.08)*
+*pension_deduction(gross_salary, rate = 0.08)*
 
-*rent\_relief(rent\_paid)*
+*rent_relief(rent_paid)*
 
-*sum\_cols(df, cols\_to\_sum)*
+*sum_cols(df, cols_to_sum)*
 
-*taxable\_income(gross\_salary, total\_relief)*
+*taxable_income(gross_salary, total_relief)*
 
-*tax\_exemption(gross\_salary, rate)*
+*tax_exemption(gross_salary, rate)*
 
-*total\_relief(cra\_value, pension, nhf, nhis)*
+*total_relief(cra_value, pension, nhf, nhis)*
 
 This package is not just a tool—it’s my way of ensuring that **learning
 and self-sufficiency triumph over dependency**.
