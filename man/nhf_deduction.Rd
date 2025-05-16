@@ -4,10 +4,10 @@
 \alias{nhf_deduction}
 \title{National Housing Fund (NHF) Deduction}
 \usage{
-nhf_deduction(gross_salary, rate = 0.025)
+nhf_deduction(basic_salary, rate = 0.025)
 }
 \arguments{
-\item{gross_salary}{Numeric. The total gross earnings before deductions.}
+\item{basic_salary}{Numeric. The total basic salary earnings before deductions.}
 
 \item{rate}{Numeric or character. The NHF deduction rate (default is 2.5\%, i.e., 0.025).
 Can be provided as:
@@ -21,7 +21,7 @@ Can be provided as:
 A numeric value representing the NHF deduction amount.
 }
 \description{
-\code{nhf_deduction()} Computes the NHF deduction from the gross emolument using a default rate of 2.5\% (0.025).
+\code{nhf_deduction()} Computes the NHF deduction from the basic salary using a default rate of 2.5\% (0.025).
 The function ensures consistent computation by utilizing \code{tax_exemption()}.
 }
 \details{

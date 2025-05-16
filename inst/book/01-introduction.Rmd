@@ -1068,11 +1068,11 @@ Why Checking and Loading Data is Important: Regularly checking that your data is
 By following these steps and ensuring that your data is stored and accessed properly, you can make sure that your package remains robust and user-friendly, providing a smooth experience for users of your package.
 
 
-# Documenting your Datasets
+# Documenting Datasets
 
 This chapter focuses on the importance of documenting datasets in R packages. Clear documentation ensures users can understand and effectively use the data. We cover best practices for writing dataset documentation, using roxygen2, and integrating documentation into the package development workflow for consistency and usability.
 
-**5.1 Why Documenting Your Datasets Matters**
+**5.1 Why Documenting Datasets Matters**
 
 In the context of R packages, clear and thorough documentation is crucial for making your datasets accessible, usable, and reproducible. Documentation serves as a guide for other users and developers to understand the structure, source, and content of the data you're sharing. It provides transparency and builds trust, helping users know exactly what they’re working with, how to use the data, and how it fits into the broader goals of your R package.
 

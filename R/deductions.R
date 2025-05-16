@@ -121,7 +121,7 @@ pension_deduction <- function(gross_salary, rate = 0.08) {
 
 #' National Housing Fund (NHF) Deduction
 #'
-#' \code{nhf_deduction()} Computes the NHF deduction from the gross emolument using a default rate of 2.5% (0.025).
+#' \code{nhf_deduction()} Computes the NHF deduction from the basic salary using a default rate of 2.5% (0.025).
 #' The function ensures consistent computation by utilizing \code{tax_exemption()}.
 #'
 #' @details
@@ -133,7 +133,7 @@ pension_deduction <- function(gross_salary, rate = 0.08) {
 #'   \text{NHF Deduction} = \text{Gross Salary} \times \text{Rate}
 #' }
 #'
-#' @param gross_salary Numeric. The total gross earnings before deductions.
+#' @param basic_salary Numeric. The total basic salary earnings before deductions.
 #' @param rate Numeric or character. The NHF deduction rate (default is 2.5%, i.e., 0.025).
 #' Can be provided as:
 #'   \itemize{
@@ -153,8 +153,8 @@ pension_deduction <- function(gross_salary, rate = 0.08) {
 #'
 #' @seealso \code{\link{tax_exemption}}
 #' @export
-nhf_deduction <- function(gross_salary, rate = 0.025) {
-  tax_exemption(gross_salary, rate)
+nhf_deduction <- function(basic_salary, rate = 0.025) {
+  tax_exemption(basic_salary, rate)
 }
 
 

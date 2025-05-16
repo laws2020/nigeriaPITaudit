@@ -1,0 +1,29 @@
+template:
+  bootstrap: 5
+
+home:
+  title: nigeriaPITaudit
+
+sidebar:
+  structure: [reference, articles]
+
+reference:
+  - title: "Key Functions"
+    contents:
+      - consolidated_relief
+      - gross_salary
+      - gross_income
+      - nhf_deduction
+      - pension_deduction
+      - penalty_and_interest
+      - nhis_deduction
+      - employee_tax_liability
+      - taxable_income
+      - total_relief
+      - fetch_tax_data
+      - outstanding_liability
+
+articles:
+  - title: "Guide"
+    contents:
+      - pitguide

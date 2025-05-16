@@ -4,7 +4,7 @@
 \alias{employee_tax_liability}
 \title{Employee Tax Liability (PITA 2020)}
 \usage{
-employee_tax_liability(taxable_income, period = "yearly")
+employee_tax_liability(taxable_income, period = "monthly")
 }
 \arguments{
 \item{taxable_income}{Numeric. The taxable income after applying all allowable deductions.}

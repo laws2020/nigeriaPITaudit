@@ -42,20 +42,20 @@ Ensure you have devtools or remotes installed:
 ```
 
 ## A Story of Compliance
-Meet Garba, a diligent Taraba Internal Revenue Service (TIRS) tax auditor. Garba has been tasked with conducting a Pay-As-You-Earn (PAYE) audit at **Infosights Consulting**, a software company in Jalingo, Nigeria.
+Meet Mr. Garba, a diligent Taraba Internal Revenue Service (TIRS) tax auditor. Mr. Garba has been tasked with conducting a Pay-As-You-Earn (PAYE) audit at **Infosights Consulting**, a software company in Jalingo, Nigeria.
 
 ### _The Audit Begins_
-Garba arrives at *Infosights Consulting* on a sunny Monday morning with his audit checklist and a friendly smile. The company's accountant, Ms. Nyayokli, greets him.
+Mr. Garba arrives at *Infosights Consulting* on a sunny Monday morning with his audit checklist and a friendly smile. The company's accountant, Ms. Nyayokli, greets him.
 
-"Good morning, Garba. We've been expecting you. Please, come in."
+"Good morning, Mr. Garba. We've been expecting you. Please, come in."
 
-Garba begins by reviewing the company's payroll records, searching for discrepancies or anomalies.
+Mr. Garba begins by reviewing the company's payroll records, searching for discrepancies or anomalies.
 
 ### _Employee Encounters_
-As Garba works, he is approached by several employees with questions and concerns about their tax deductions.
+As Mr. Garba works, he is approached by several employees with questions and concerns about their tax deductions.
 
 ### Ms. Francisca, the HR Manager
-"Excuse me, Garba. I hope you can help me clarify something. One of our employees, Mr. Ademola, has been complaining about his tax deductions. He says he's being over-taxed. Can you explain how the tax deductions work?"
+"Excuse me, Mr. Garba. I hope you can help me clarify something. One of our employees, Mr. Ademola, has been complaining about his tax deductions. He says he's being over-taxed. Can you explain how the tax deductions work?"
 
 Garba sits down with the company's accountant, HR Manager, Ms. Nyayokli, and Ms. Francisca respectively, and begins to review the salary components of one of the employees, Mr. Ademola.
 
@@ -65,9 +65,9 @@ Garba sits down with the company's accountant, HR Manager, Ms. Nyayokli, and Ms.
 <span class="marginnote">_**Gross salary**_ refers to the total earnings (e.g., basic salary, allowances, bonuses, overtime pay, etc.) from employment. 
 
 Garba opens his R console and loads the nigeriaPITaudit package.
-Ms. Nyayokli, your record shows that Mr. Ademola has an annual basic salary of 500000, allowances of 150000, and bonuses of 200000. Is there any other item that is not included, such as overtime pay? Just to be sure about what was not included. 
+Ms. Francisca, your record shows that Mr. Ademola has an annual basic salary of 500000, allowances of 150000, and bonuses of 200000. Is there any other item that is not included, such as overtime pay? Just to be sure about what was not included. 
 
-Ms. Nyayokli: "His salary last year did not include overtime pay."
+Ms. Francisca: "His salary last year did not include overtime pay."
 Garba: "Okay, let's see then what his total gross salary is."
 
 ```{r, warning=FALSE, message=FALSE}
@@ -83,7 +83,7 @@ print(noquote(format(gross, big.mark = ",", scientific = FALSE)))
 
 ```{r}
 pension <- pension_deduction(gross, rate = 0.08)
-nhf <- nhf_deduction(gross, rate = 0.025)
+nhf <- nhf_deduction(basic_salary = 500000, rate = 0.025)
 nhis <- nhis_deduction(gross, rate = 0.05)
 
 list(
@@ -107,7 +107,7 @@ print(noquote(format(grossIncome, big.mark = ",", scientific = FALSE)))
 CRA is calculated as:
 
 ```{r}
-consolidatedRelief <- consolidated_relief(grossIncome)
+consolidatedRelief <- consolidated_relief(grossIncome, period = "yearly")
 print(noquote(format(consolidatedRelief, big.mark = ",", scientific = FALSE)))
 ```
 
@@ -129,6 +129,6 @@ print(noquote(format(taxableIncome, big.mark = ",", scientific = FALSE)))
 
 ### _Step 7: Tax Calculation_
 ```{r}
-employeeLiability <- employee_tax_liability(taxableIncome)
+employeeLiability <- employee_tax_liability(taxableIncome, period ="yearly")
 print(noquote(format(employeeLiability, big.mark = ", ", scientific = FALSE)))
 ```

@@ -57,17 +57,17 @@ taxable_income <- function(gross_salary, total_relief){
 #'
 #' @export
 
-employee_tax_liability <- function(taxable_income, period = "yearly") {
+employee_tax_liability <- function(taxable_income, period = "monthly") {
   # Validate input
   if (!is.numeric(taxable_income) || any(is.na(taxable_income)) || any(taxable_income < 0)) {
     stop("Taxable income must be a positive numeric value.")
   }
 
   # Define tax brackets and rates based on the period
-  if (period == "yearly") {
+  if (period == "monthly") {
     tax_brackets <- c(300000, 300000, 500000, 500000, 1600000, 3200000) # Yearly bands
     tax_rates <- c(0.07, 0.11, 0.15, 0.19, 0.21, 0.24) # Yearly tax rates
-  } else if (period == "monthly") {
+  } else if (period == "yearly") {
     tax_brackets <- c(25000, 25000, 41667, 41667, 133333, 266667) # Monthly bands
     tax_rates <- c(0.07, 0.11, 0.15, 0.19, 0.21, 0.24) # Monthly tax rates
   } else {

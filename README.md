@@ -1,11 +1,5 @@
 ## **nigeriaPITaudit**
 
-<figure>
-<img
-src="https://img.shields.io/github/license/laws2020/nigeriaPITaudit"
-alt="GitHub" />
-<figcaption aria-hidden="true">GitHub</figcaption>
-</figure>
 
 #### A Comprehensive Toolkit for Auditing Personal Income Tax in Nigeria
 

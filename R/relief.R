@@ -51,30 +51,33 @@
 #' @seealso \code{\link{gross_income}}, \code{\link{pension_deduction}},
 #' \code{\link{nhf_deduction}}, \code{\link{nhis_deduction}}
 #' @export
-consolidated_relief <- function(gross_income, period = "yearly") {
-  # Validate input
-  if (!is.numeric(gross_income) || any(gross_income < 0)) {
-    stop("Gross income must be a positive numeric value.")
+consolidated_relief <- function(gross_income, period = 'yearly') {
+  if(!is.numeric(gross_income) || any(gross_income < 0)) {
+    stop("Gross Income must be a positive numeric value.")
   }
 
-  # Define base relief values
+  # Annual base relief and monthly equivalent
   base_relief_yearly <- 200000
-  base_relief_monthly <- base_relief_yearly / 12  # ₦16,666.67
+  base_relief_monthly <- (base_relief_yearly) / 12  # 16,666.67
 
-  # Compute relief based on period
-  if (period == "yearly") {
+  # Calculate relief based on the period
+  if (period == 'yearly') {
     relief <- ifelse(0.01 * gross_income > base_relief_yearly,
                      (0.01 * gross_income) + (0.2 * gross_income),
                      base_relief_yearly + (0.2 * gross_income))
-  } else if (period == "monthly") {
+
+  } else if (period == 'monthly') {
+    # Here, base_relief_monthly is used directly for monthly calculations
     relief <- ifelse(0.01 * gross_income > base_relief_monthly,
                      (0.01 * gross_income) + (0.2 * gross_income),
                      base_relief_monthly + (0.2 * gross_income))
+
   } else {
-    stop("Invalid period. Choose either 'yearly' or 'monthly'.")
+    stop("Invalid period. Choose either 'yearly' or 'monthly'")
   }
 
-  return(round(relief, 2))  # Rounded to 2 decimal places
+  # Return the result rounded to 2 decimal places
+  return(round(relief, 2))
 }
 
 

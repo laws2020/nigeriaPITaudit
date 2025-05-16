@@ -1,50 +1,52 @@
-#' Penalty and Interest for Late Tax Payment
+#' Penalty and Interest for Late PAYE Remittance (as per Finance Act 2020 and PITA)
 #'
-#' This \code{penalty_and_interest()} function calculates the penalty and interest charged on an unpaid tax amount when the tax payment is made after the due date.
-#' Under Nigerian tax regulations, if a payment is late, a fixed penalty is applied based on the employer type (individual or corporate),
-#' and interest accrues on the unpaid tax at a specified annual rate. The total liability is the sum of the original unpaid tax, the interest
-#' accrued over the period of delay, and the fixed penalty.
+#' The \code{penalty_and_interest()} function computes the penalty and interest applicable to late remittance of Pay-As-You-Earn (PAYE) taxes,
+#' in accordance with the Personal Income Tax Act (PITA) and the Finance Act 2020 of Nigeria.
+#' Employers are required to remit deducted PAYE taxes on or before the 10th day of the month following the month of deduction.
+#' Failure to remit within this timeline attracts a penalty and interest as specified in the law.
 #'
 #' @details
-#' The function works as follows:
+#' The Finance Act 2020, amending relevant sections of PITA, specifies that:
 #' \itemize{
-#'   \item Both \code{due_date} and \code{payment_date} are converted to Date objects.
-#'   \item If \code{payment_date} is on or before \code{due_date}, the function returns a message indicating that no penalty or interest applies.
-#'   \item Otherwise, it computes the number of days overdue.
-#'   \item An annual interest rate of 21% (0.21) is used, which is converted to a daily rate by dividing by 365.
-#'   \item The interest amount is calculated by multiplying the unpaid tax by the daily interest rate and the number of days overdue.
-#'   \item A fixed penalty is applied: 50,000 NGN for individuals and 500,000 NGN for corporate employers.
-#'   \item The total liability is then calculated by summing the unpaid tax, the interest amount, and the penalty.
+#'   \item A penalty of NGN 500,000 shall apply to corporate employers who fail to remit taxes when due.
+#'   \item A penalty of NGN 50,000 shall apply to individual employers in similar situations.
+#'   \item Interest shall accrue at the prevailing Central Bank of Nigeria (CBN) minimum rediscount rate (currently approximated at 21%) on a daily basis until payment is made.
 #' }
 #'
-#' @param unpaid_tax Numeric. The outstanding tax amount that has not been remitted.
-#' @param due_date Character or Date. The due date for the tax payment. It must be in a format convertible by \code{as.Date()}.
-#' @param payment_date Character or Date. The actual date on which the tax payment was made. It must be convertible to a Date.
-#' @param employer_type Character. Specifies the type of employer, either "individual" or "corporate" (default is "corporate").
-#' This determines the fixed penalty amount applied.
+#' The function performs the following operations:
+#' \itemize{
+#'   \item Converts \code{due_date} and \code{payment_date} to Date objects.
+#'   \item If \code{payment_date} is on or before \code{due_date}, it returns a message indicating no penalty or interest applies.
+#'   \item Otherwise, calculates the number of days overdue.
+#'   \item Uses a daily interest rate derived from an annual rate of 21% (0.21 / 365).
+#'   \item Computes the interest accrued on the unpaid tax for the number of days overdue.
+#'   \item Calculates the total liability as the sum of the original tax, interest, and penalty.
+#' }
 #'
-#' @return A list with the following components:
+#' @param unpaid_tax Numeric. The outstanding PAYE tax amount that was not remitted on time.
+#' @param due_date Character or Date. The statutory due date for the PAYE remittance (usually the 10th of the following month).
+#' @param payment_date Character or Date. The actual remittance date. Must be convertible to a Date.
+#'
+#' @return A list containing:
 #' \describe{
-#'   \item{Unpaid_Tax}{The original unpaid tax amount.}
-#'   \item{Days_Overdue}{The number of days by which the payment is late.}
-#'   \item{Interest_Amount}{The computed interest on the unpaid tax over the overdue period (rounded to 2 decimal places).}
-#'   \item{Penalty_Amount}{The fixed penalty amount based on the employer type.}
-#'   \item{Total_Liability}{The sum of the unpaid tax, interest, and penalty, representing the total tax liability (rounded to 2 decimal places).}
+#'   \item{Unpaid_Tax}{Original unpaid PAYE amount.}
+#'   \item{Days_Overdue}{Number of days past the due date.}
+#'   \item{Interest_Amount}{Calculated interest on overdue amount (rounded to 2 decimal places).}
+#'   \item{Penalty_Amount}{Penalty based on employer type (NGN 50,000 or NGN 500,000).}
+#'   \item{Total_Liability}{Sum of tax, interest, and penalty (rounded to 2 decimal places).}
 #' }
 #'
 #' @examples
-#' # Example 1: Payment made on time (no penalty or interest)
-#' penalty_and_interest(1000000, "2024-01-31", "2024-01-31", employer_type = "corporate")
+#' # On-time remittance
+#' penalty_and_interest(1000000, "2024-01-10", "2024-01-10")
 #'
-#' # Example 2: Late payment by a corporate employer
-#' penalty_and_interest(1000000, "2024-01-31", "2024-04-01", employer_type = "corporate")
+#' # Late remittance by corporate employer
+#' penalty_and_interest(1000000, "2024-01-10", "2024-03-01")
 #'
-#' # Example 3: Late payment by an individual employer
-#' penalty_and_interest(1000000, "2024-01-31", "2024-04-01", employer_type = "individual")
-#'
+#' # Late remittance by individual employer
+#' penalty_and_interest(1000000, "2024-01-10", "2024-03-01")
 #' @export
-penalty_and_interest <- function(unpaid_tax, due_date, payment_date,
-                                 employer_type = "corporate") {
+penalty_and_interest <- function(unpaid_tax, due_date, payment_date) {
   # Convert due_date and payment_date to Date objects
   due_date <- as.Date(due_date)
   payment_date <- as.Date(payment_date)
@@ -64,8 +66,8 @@ penalty_and_interest <- function(unpaid_tax, due_date, payment_date,
   # Calculate the interest amount on the unpaid tax over the overdue period
   interest_amount <- unpaid_tax * daily_interest_rate * days_overdue
 
-  # Determine the penalty amount based on the employer type: 50,000 NGN for individuals, 500,000 NGN for corporates
-  penalty_amount <- ifelse(tolower(employer_type) == "individual", 50000, 500000)
+  # Define the penalty as 10% of the unpaid tax
+  penalty_amount <- unpaid_tax * 0.10
 
   # Compute the total liability as the sum of the unpaid tax, interest amount, and penalty amount
   total_liability <- unpaid_tax + interest_amount + penalty_amount
@@ -75,12 +77,13 @@ penalty_and_interest <- function(unpaid_tax, due_date, payment_date,
     Unpaid_Tax = unpaid_tax,
     Days_Overdue = days_overdue,
     Interest_Amount = round(interest_amount, 2),
-    Penalty_Amount = penalty_amount,
+    Penalty_Amount = round(penalty_amount, 2),
     Total_Liability = round(total_liability, 2)
   )
 
   return(result)
 }
+
 
 
 #' Outstanding Employee Tax Liability

@@ -2,8 +2,9 @@
 output: github_document
 ---
 
-## **nigeriaPITaudit**  
-![GitHub](https://img.shields.io/github/license/laws2020/nigeriaPITaudit)  
+## **nigeriaPITaudit** 
+
+![GitHub](https://img.shields.io/github/license/laws2020/nigeriaPITaudit)
 
 #### A Comprehensive Toolkit for Auditing Personal Income Tax in Nigeria  
 
@@ -33,7 +34,7 @@ if (!requireNamespace("devtools", quietly = TRUE)) {
 
 ### Install nigeriaPITaudit from GitHub
 ```{r}
-# devtools::install_github("laws2020/nigeriaPITaudit/nigeriaPITaudit")
+# devtools::install_github("laws2020/nigeriaPITaudit")
 
 ```
 
@@ -58,7 +59,7 @@ Their unwillingness to learn **pushed me to create something greater, but more e
 To embark on this journey, first, we must summon the power of nigeriaPITaudit package:
 
 
-```{r}
+```{r, warning=FALSE, message=FALSE}
 library(nigeriaPITaudit)
 library(knitr)
 ```
@@ -101,7 +102,7 @@ To compute **gross salaries**, we use:
 
 ```{r}
 gross <- gross_salary(df$Basic_Salary, df$Teaching_Allowance, df$Salary_Arrears,
-                      df$other_allowances, df$Overtime, df$Shifting, df$Speacilist,
+                      df$other_allowances, df$Overtime, df$Shifting, df$Specialist,
                       df$Hazard_Allowance)
 
 ```
@@ -112,7 +113,7 @@ We then calculate key deductions:
 
 ```{r}
 pension <- pension_deduction(gross)
-nhf <- nhf_deduction(gross)
+nhf <- nhf_deduction(df$Basic_Salary)
 nhis <- nhis_deduction(gross)
 
 ```
@@ -194,7 +195,7 @@ _gross_income(gross_salary, pension, nhis, nhf)_
 
 _gross_salary(...)_
 
-_nhf_deduction(gross_salary, rate = 0.025)_
+_nhf_deduction(basic_salary, rate = 0.025)_
 
 _nhis_deduction(gross_salary, rate = 0.05)_
 

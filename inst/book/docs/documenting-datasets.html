@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 6 Documenting your Datasets | The nigeriaPITaudit Story: Creating an R Package</title>
-  <meta name="description" content="Chapter 6 Documenting your Datasets | The nigeriaPITaudit Story: Creating an R Package" />
+  <title>Chapter 6 Documenting Datasets | The nigeriaPITaudit Story: Creating an R Package</title>
+  <meta name="description" content="Chapter 6 Documenting Datasets | The nigeriaPITaudit Story: Creating an R Package" />
   <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 6 Documenting your Datasets | The nigeriaPITaudit Story: Creating an R Package" />
+  <meta property="og:title" content="Chapter 6 Documenting Datasets | The nigeriaPITaudit Story: Creating an R Package" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 6 Documenting your Datasets | The nigeriaPITaudit Story: Creating an R Package" />
+  <meta name="twitter:title" content="Chapter 6 Documenting Datasets | The nigeriaPITaudit Story: Creating an R Package" />
   
   
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Lawrence Daniel Garba" />
 
 
-<meta name="date" content="2025-05-02" />
+<meta name="date" content="2025-05-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -142,7 +142,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3" data-path="tools-for-managing-datasets-for-an-r-package.html"><a href="tools-for-managing-datasets-for-an-r-package.html"><i class="fa fa-check"></i><b>3</b> Tools for Managing Datasets for an R Package</a></li>
 <li class="chapter" data-level="4" data-path="preparing-your-datasets-for-an-r-package.html"><a href="preparing-your-datasets-for-an-r-package.html"><i class="fa fa-check"></i><b>4</b> Preparing Your Datasets for an R Package</a></li>
 <li class="chapter" data-level="5" data-path="adding-datasets-to-an-r-package.html"><a href="adding-datasets-to-an-r-package.html"><i class="fa fa-check"></i><b>5</b> Adding Datasets to an R Package</a></li>
-<li class="chapter" data-level="6" data-path="documenting-your-datasets.html"><a href="documenting-your-datasets.html"><i class="fa fa-check"></i><b>6</b> Documenting your Datasets</a></li>
+<li class="chapter" data-level="6" data-path="documenting-datasets.html"><a href="documenting-datasets.html"><i class="fa fa-check"></i><b>6</b> Documenting Datasets</a></li>
 <li class="chapter" data-level="7" data-path="best-practices-for-including-datasets-in-r-packages.html"><a href="best-practices-for-including-datasets-in-r-packages.html"><i class="fa fa-check"></i><b>7</b> Best Practices for Including Datasets in R Packages</a></li>
 </ul>
 
@@ -161,10 +161,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="documenting-your-datasets" class="section level1 hasAnchor" number="6">
-<h1><span class="header-section-number">Chapter 6</span> Documenting your Datasets<a href="documenting-your-datasets.html#documenting-your-datasets" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="documenting-datasets" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">Chapter 6</span> Documenting Datasets<a href="documenting-datasets.html#documenting-datasets" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>This chapter focuses on the importance of documenting datasets in R packages. Clear documentation ensures users can understand and effectively use the data. We cover best practices for writing dataset documentation, using roxygen2, and integrating documentation into the package development workflow for consistency and usability.</p>
-<p><strong>5.1 Why Documenting Your Datasets Matters</strong></p>
+<p><strong>5.1 Why Documenting Datasets Matters</strong></p>
 <p>In the context of R packages, clear and thorough documentation is crucial for making your datasets accessible, usable, and reproducible. Documentation serves as a guide for other users and developers to understand the structure, source, and content of the data you’re sharing. It provides transparency and builds trust, helping users know exactly what they’re working with, how to use the data, and how it fits into the broader goals of your R package.</p>
 <p><strong>5.1.1 Importance of Clear Documentation</strong></p>
 <p>Documenting your datasets clearly allows other users to:</p>
@@ -221,56 +221,56 @@ Here are some commonly used roxygen2 tags for dataset documentation:</p>
 <p>• <span class="citation">@source</span>: Provides information about where the data comes from or how it was collected.</p>
 <p>• <span class="citation">@examples</span>: Provides examples of how to load and use the dataset in R.</p>
 <p>Example:</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="documenting-your-datasets.html#cb51-1" tabindex="-1"></a><span class="co">#&#39; @docType dataset</span></span>
-<span id="cb51-2"><a href="documenting-your-datasets.html#cb51-2" tabindex="-1"></a><span class="co">#&#39; @format A data frame with 100 rows and 3 variables:</span></span>
-<span id="cb51-3"><a href="documenting-your-datasets.html#cb51-3" tabindex="-1"></a><span class="co">#&#39; \describe{</span></span>
-<span id="cb51-4"><a href="documenting-your-datasets.html#cb51-4" tabindex="-1"></a><span class="co">#&#39;   \item{age}{Age of the employee (numeric)}</span></span>
-<span id="cb51-5"><a href="documenting-your-datasets.html#cb51-5" tabindex="-1"></a><span class="co">#&#39;   \item{salary}{Salary of the employee (numeric)}</span></span>
-<span id="cb51-6"><a href="documenting-your-datasets.html#cb51-6" tabindex="-1"></a><span class="co">#&#39;   \item{department}{Department the employee belongs to (factor)}</span></span>
-<span id="cb51-7"><a href="documenting-your-datasets.html#cb51-7" tabindex="-1"></a><span class="co">#&#39; }</span></span>
-<span id="cb51-8"><a href="documenting-your-datasets.html#cb51-8" tabindex="-1"></a><span class="co">#&#39; @source Internal payroll database</span></span>
-<span id="cb51-9"><a href="documenting-your-datasets.html#cb51-9" tabindex="-1"></a><span class="co">#&#39; @examples</span></span>
-<span id="cb51-10"><a href="documenting-your-datasets.html#cb51-10" tabindex="-1"></a><span class="co">#&#39; data(employee_data)</span></span>
-<span id="cb51-11"><a href="documenting-your-datasets.html#cb51-11" tabindex="-1"></a><span class="co">#&#39; head(employee_data)</span></span>
-<span id="cb51-12"><a href="documenting-your-datasets.html#cb51-12" tabindex="-1"></a><span class="st">&quot;employee_data&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="documenting-datasets.html#cb51-1" tabindex="-1"></a><span class="co">#&#39; @docType dataset</span></span>
+<span id="cb51-2"><a href="documenting-datasets.html#cb51-2" tabindex="-1"></a><span class="co">#&#39; @format A data frame with 100 rows and 3 variables:</span></span>
+<span id="cb51-3"><a href="documenting-datasets.html#cb51-3" tabindex="-1"></a><span class="co">#&#39; \describe{</span></span>
+<span id="cb51-4"><a href="documenting-datasets.html#cb51-4" tabindex="-1"></a><span class="co">#&#39;   \item{age}{Age of the employee (numeric)}</span></span>
+<span id="cb51-5"><a href="documenting-datasets.html#cb51-5" tabindex="-1"></a><span class="co">#&#39;   \item{salary}{Salary of the employee (numeric)}</span></span>
+<span id="cb51-6"><a href="documenting-datasets.html#cb51-6" tabindex="-1"></a><span class="co">#&#39;   \item{department}{Department the employee belongs to (factor)}</span></span>
+<span id="cb51-7"><a href="documenting-datasets.html#cb51-7" tabindex="-1"></a><span class="co">#&#39; }</span></span>
+<span id="cb51-8"><a href="documenting-datasets.html#cb51-8" tabindex="-1"></a><span class="co">#&#39; @source Internal payroll database</span></span>
+<span id="cb51-9"><a href="documenting-datasets.html#cb51-9" tabindex="-1"></a><span class="co">#&#39; @examples</span></span>
+<span id="cb51-10"><a href="documenting-datasets.html#cb51-10" tabindex="-1"></a><span class="co">#&#39; data(employee_data)</span></span>
+<span id="cb51-11"><a href="documenting-datasets.html#cb51-11" tabindex="-1"></a><span class="co">#&#39; head(employee_data)</span></span>
+<span id="cb51-12"><a href="documenting-datasets.html#cb51-12" tabindex="-1"></a><span class="st">&quot;employee_data&quot;</span></span></code></pre></div>
 <p><strong>5.5 Key Components of Dataset Documentation</strong></p>
 <p>Dataset documentation must contain several key components to ensure that users can fully understand and properly use the data. Here are the key sections to include:</p>
 <p><strong>5.5.1 Title – One-line Summary</strong></p>
 <p>The title is a concise, one-line summary that gives the user an immediate understanding of the dataset. It should be descriptive enough to convey the purpose of the data.</p>
 <p>Example:</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="documenting-your-datasets.html#cb52-1" tabindex="-1"></a><span class="co">#&#39; Employee Data for 2021</span></span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="documenting-datasets.html#cb52-1" tabindex="-1"></a><span class="co">#&#39; Employee Data for 2021</span></span></code></pre></div>
 <p><strong>5.5.2 Description – What the Data Is, Where It Comes From</strong></p>
 <p>The description provides context for the dataset. It should include what the dataset represents, who collected it, and why it was collected. This section can also explain any transformations or preprocessing steps that were applied to the data.</p>
 <p>Example:</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="documenting-your-datasets.html#cb53-1" tabindex="-1"></a><span class="co">#&#39; A dataset containing employee information for the year 2021.</span></span>
-<span id="cb53-2"><a href="documenting-your-datasets.html#cb53-2" tabindex="-1"></a><span class="co">#&#39; Includes salary details, department, and employee age.</span></span>
-<span id="cb53-3"><a href="documenting-your-datasets.html#cb53-3" tabindex="-1"></a><span class="co">#&#39; The data was collected from the company’s payroll database.</span></span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="documenting-datasets.html#cb53-1" tabindex="-1"></a><span class="co">#&#39; A dataset containing employee information for the year 2021.</span></span>
+<span id="cb53-2"><a href="documenting-datasets.html#cb53-2" tabindex="-1"></a><span class="co">#&#39; Includes salary details, department, and employee age.</span></span>
+<span id="cb53-3"><a href="documenting-datasets.html#cb53-3" tabindex="-1"></a><span class="co">#&#39; The data was collected from the company’s payroll database.</span></span></code></pre></div>
 <p><strong>5.5.3 Format – Data Structure (Rows, Columns, Types)</strong></p>
 <p>The format section describes the dataset’s structure, including the number of rows, the column names, and the types of data in each column (e.g., numeric, factor).</p>
 <p>Example:</p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="documenting-your-datasets.html#cb54-1" tabindex="-1"></a><span class="co">#&#39; @format A data frame with 100 rows and 3 variables:</span></span>
-<span id="cb54-2"><a href="documenting-your-datasets.html#cb54-2" tabindex="-1"></a><span class="co">#&#39; \describe{</span></span>
-<span id="cb54-3"><a href="documenting-your-datasets.html#cb54-3" tabindex="-1"></a><span class="co">#&#39;   \item{age}{Employee’s age (numeric)}</span></span>
-<span id="cb54-4"><a href="documenting-your-datasets.html#cb54-4" tabindex="-1"></a><span class="co">#&#39;   \item{salary}{Employee’s annual salary (numeric)}</span></span>
-<span id="cb54-5"><a href="documenting-your-datasets.html#cb54-5" tabindex="-1"></a><span class="co">#&#39;   \item{department}{Department (factor)}</span></span>
-<span id="cb54-6"><a href="documenting-your-datasets.html#cb54-6" tabindex="-1"></a><span class="co">#&#39; }</span></span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="documenting-datasets.html#cb54-1" tabindex="-1"></a><span class="co">#&#39; @format A data frame with 100 rows and 3 variables:</span></span>
+<span id="cb54-2"><a href="documenting-datasets.html#cb54-2" tabindex="-1"></a><span class="co">#&#39; \describe{</span></span>
+<span id="cb54-3"><a href="documenting-datasets.html#cb54-3" tabindex="-1"></a><span class="co">#&#39;   \item{age}{Employee’s age (numeric)}</span></span>
+<span id="cb54-4"><a href="documenting-datasets.html#cb54-4" tabindex="-1"></a><span class="co">#&#39;   \item{salary}{Employee’s annual salary (numeric)}</span></span>
+<span id="cb54-5"><a href="documenting-datasets.html#cb54-5" tabindex="-1"></a><span class="co">#&#39;   \item{department}{Department (factor)}</span></span>
+<span id="cb54-6"><a href="documenting-datasets.html#cb54-6" tabindex="-1"></a><span class="co">#&#39; }</span></span></code></pre></div>
 <p><strong>5.5.4 Source – Reference to External Origin or Publication</strong></p>
 <p>The source section provides details about where the data came from. This could be a publication, a website, or an internal database. This helps ensure that users can verify and trust the data.</p>
 <p>Example:</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="documenting-your-datasets.html#cb55-1" tabindex="-1"></a><span class="co">#&#39; @source Company payroll database, retrieved in January 2021.</span></span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="documenting-datasets.html#cb55-1" tabindex="-1"></a><span class="co">#&#39; @source Company payroll database, retrieved in January 2021.</span></span></code></pre></div>
 <p><strong>5.5.5 Examples – How to Load/Use the Dataset</strong></p>
 <p>The examples section shows how users can load and use the dataset in their R code. This can include code snippets demonstrating common operations on the dataset.</p>
 <p>Example:</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="documenting-your-datasets.html#cb56-1" tabindex="-1"></a><span class="co">#&#39; @examples</span></span>
-<span id="cb56-2"><a href="documenting-your-datasets.html#cb56-2" tabindex="-1"></a><span class="co">#&#39; data(employee_data)</span></span>
-<span id="cb56-3"><a href="documenting-your-datasets.html#cb56-3" tabindex="-1"></a><span class="co">#&#39; summary(employee_data)</span></span>
-<span id="cb56-4"><a href="documenting-your-datasets.html#cb56-4" tabindex="-1"></a><span class="co">#&#39; head(employee_data)</span></span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="documenting-datasets.html#cb56-1" tabindex="-1"></a><span class="co">#&#39; @examples</span></span>
+<span id="cb56-2"><a href="documenting-datasets.html#cb56-2" tabindex="-1"></a><span class="co">#&#39; data(employee_data)</span></span>
+<span id="cb56-3"><a href="documenting-datasets.html#cb56-3" tabindex="-1"></a><span class="co">#&#39; summary(employee_data)</span></span>
+<span id="cb56-4"><a href="documenting-datasets.html#cb56-4" tabindex="-1"></a><span class="co">#&#39; head(employee_data)</span></span></code></pre></div>
 <p><strong>5.6 Building and Checking Documentation</strong></p>
 <p>Once your dataset documentation is complete, it’s important to build and check it to ensure that everything is working properly.</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="documenting-your-datasets.html#cb57-1" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">document</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="documenting-datasets.html#cb57-1" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">document</span>()</span></code></pre></div>
 <p>The devtools::document() function processes all roxygen2 comments in your code files and generates the corresponding .Rd files in the man/ directory. This is an important step in creating the package documentation.</p>
 <p>Example:</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="documenting-your-datasets.html#cb58-1" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">document</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="documenting-datasets.html#cb58-1" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">document</span>()</span></code></pre></div>
 <p>Viewing with ?datasetName:</p>
 <p>After building the documentation, you can view it by typing ?datasetName in the R console. This will bring up the documentation for the dataset, allowing users to easily access the information.</p>
 <p>Example:</p>
@@ -278,7 +278,7 @@ Here are some commonly used roxygen2 tags for dataset documentation:</p>
 <p>devtools::check() to Validate Documentation</p>
 <p>Use devtools::check() to run a comprehensive check of your R package. This will validate the correctness of your documentation, ensuring that all required fields are filled and that there are no errors.</p>
 <p>Example:</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="documenting-your-datasets.html#cb59-1" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">check</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="documenting-datasets.html#cb59-1" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">check</span>()</span></code></pre></div>
 </div>
             </section>
 

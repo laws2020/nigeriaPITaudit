@@ -7,3 +7,4 @@ documenting-your-datasets
 best-practices-for-including-datasets-in-r-packages
 read-the-excel-file
 save-the-data-as-an-r-data-file
+documenting-datasets

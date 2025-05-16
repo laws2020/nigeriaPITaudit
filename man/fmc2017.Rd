@@ -5,7 +5,19 @@
 \alias{fmc2017}
 \title{Payroll Dataset for FMC}
 \format{
-A data frame with \code{n} rows and \code{m} columns:
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 1148 rows and 14 columns.
+}
+\source{
+FMC Payroll System
+}
+\usage{
+fmc2017
+}
+\description{
+\code{fmc2017} contains payroll data for employees at FMC. It includes basic salary, allowances, and other financial details.
+}
+\details{
+@format A data frame with \code{n} rows and \code{m} columns:
 \describe{
 \item{S/N}{Numeric. Serial number of employee record.}
 \item{Name}{Character. Employee name.}
@@ -17,20 +29,11 @@ A data frame with \code{n} rows and \code{m} columns:
 \item{other_allowances}{Numeric. Additional allowances.}
 \item{Overtime}{Numeric. Overtime payment.}
 \item{Shifting}{Numeric. Shift-related payments.}
-\item{specialist}{Numeric. Extra pay for specialist work.}
+\item{Specialist}{Numeric. Extra pay for specialist work.}
 \item{Hazard_Allowance}{Numeric. Extra pay for hazardous work.}
 \item{Call_Allowance}{Numeric. Allowance for call staff.}
-\item{Netpay}{Numeric. Employee's net salary after deductions.}
+\item{Grosspay}{Numeric. Employee's net salary after deductions.}
 }
-}
-\source{
-FMC Payroll System
-}
-\usage{
-fmc2017
-}
-\description{
-\code{fmc2017} contains payroll data for employees at FMC. It includes basic salary, allowances, and other financial details.
 }
 \examples{
 data(fmc2017)

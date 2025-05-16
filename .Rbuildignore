@@ -4,3 +4,7 @@
 ^doc$
 ^Meta$
 ^data-raw$
+^README\.Rmd$
+^audit_log$
+^_pkgdown\.yml$
+^docs$
