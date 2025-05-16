@@ -16,13 +16,18 @@
     header {
       background-color: #007acc;
       color: white;
-      padding: 40px 20px;
+      padding: 20px;
       text-align: center;
     }
 
     header h1 {
       margin: 0;
-      font-size: 2.5em;
+      font-size: 2em;
+    }
+
+    header p {
+      margin: 5px 0 0;
+      font-size: 1.1em;
     }
 
     section {
@@ -44,6 +49,18 @@
       text-decoration: underline;
     }
 
+    pre {
+      background: #eef2f7;
+      padding: 10px;
+      border-radius: 5px;
+      overflow-x: auto;
+    }
+
+    code {
+      font-family: Consolas, Monaco, 'Courier New', monospace;
+      font-size: 0.95em;
+    }
+
     footer {
       text-align: center;
       padding: 20px;
@@ -56,7 +73,7 @@
 
 <header>
   <h1>Nigeria PIT Audit</h1>
-  <p>A data analysis package for auditing Personal Income Tax in Nigeria</p>
+  <p>An R package for auditing Personal Income Tax in Nigeria</p>
 </header>
 
 <section>
@@ -64,18 +81,16 @@
   <p><a href="https://github.com/laws2020/nigeriaPITaudit" target="_blank">Visit the GitHub repo</a></p>
 
   <h2 id="install">📦 Installation</h2>
-  <pre><code>pip install nigeriaPITaudit</code></pre>
+  <pre><code>devtools::install_github("laws2020/nigeriaPITaudit")</code></pre>
 
   <h2 id="usage">⚙️ Usage</h2>
-  <pre><code>
-import nigeriaPITaudit as pit
+  <pre><code>library(nigeriaPITaudit)
 
 # Run a basic audit
-pit.run_audit('Lagos2023.csv')
-  </code></pre>
+run_audit("Lagos2023.csv")</code></pre>
 
   <h2>📘 Documentation</h2>
-  <p>Full documentation coming soon.</p>
+  <p>Full documentation coming soon. Visit the <a href="https://github.com/laws2020/nigeriaPITaudit" target="_blank">GitHub page</a> for updates.</p>
 </section>
 
 <footer>
