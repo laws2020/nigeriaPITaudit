@@ -87,9 +87,7 @@ Failure to remit within this timeline attracts a penalty and interest as specifi
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The Finance Act 2020, amending relevant sections of PITA, specifies that:</p><ul><li><p>A penalty of NGN 500,000 shall apply to corporate employers who fail to remit taxes when due.</p></li>
-<li><p>A penalty of NGN 50,000 shall apply to individual employers in similar situations.</p></li>
-<li><p>Interest shall accrue at the prevailing Central Bank of Nigeria (CBN) minimum rediscount rate (currently approximated at 21%) on a daily basis until payment is made.</p></li>
+    <p>The Finance Act 2020, amending relevant sections of PITA, specifies that:</p><ul><li><p>Interest shall accrue at the prevailing Central Bank of Nigeria (CBN) minimum rediscount rate (currently approximated at 21%) on a daily basis until payment is made.</p></li>
 </ul><p>The function performs the following operations:</p><ul><li><p>Converts <code>due_date</code> and <code>payment_date</code> to Date objects.</p></li>
 <li><p>If <code>payment_date</code> is on or before <code>due_date</code>, it returns a message indicating no penalty or interest applies.</p></li>
 <li><p>Otherwise, calculates the number of days overdue.</p></li>
