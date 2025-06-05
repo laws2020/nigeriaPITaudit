@@ -1,0 +1,50 @@
+---
+  title: "Welcome to ngPITaudit"
+output: pkgdown::html_document
+---
+  
+  ## 🇳🇬 Nigeria Personal Income Tax (PIT) Audit Toolkit
+  
+  **ngPITaudit** is an R package designed to assist in auditing **Personal Income Tax (PIT)** and **Pay As You Earn (PAYE)** in Nigeria. It supports computations of gross income, tax reliefs, deductions, and compliance with Nigerian tax laws.
+
+---
+  
+  ### 🚀 Key Features
+  
+  - Consolidated relief and tax deductions
+- PAYE and PIT computation
+- NHF, NHIS, and pension deduction handling
+- Tax exemption processing
+- Computation of outstanding liabilities and penalties
+- Built-in data from FMC 2017
+
+---
+  
+  ### 📦 Functions You’ll Find Useful
+  
+  - `consolidated_relief()`, `gross_salary()`, `employee_tax_liability()`
+- `nhf_deduction()`, `pension_deduction()`, `taxable_income()`
+- `fetch_tax_data()` and `outstanding_liability()`
+
+---
+  
+  ### 🧾 Applications
+  
+  This package is ideal for:
+  
+  - Internal Revenue Service audits
+- Payroll and HR compliance
+- Financial planning and forecasting in Nigeria
+- Academic research and case studies
+
+---
+  
+  ### 📚 Learn More
+  
+  - Start with the [Get Started](./articles/pitguide.html) guide.
+- Browse [Reference Functions](./reference/index.html).
+- View example calculations and tax models.
+
+---
+  
+  Need help? Raise an issue or contribute on [GitHub](https://github.com/laws2020/nigeriaPITaudit).

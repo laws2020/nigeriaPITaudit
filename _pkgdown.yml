@@ -1,11 +1,18 @@
+destination: docs
+clean: true
+
 template:
   bootstrap: 5
+  params:
+    title: "Nigeria PIT Audit Toolkit (ngPITaudit)"
+    description: "An R package for auditing Personal Income Tax (PIT) and PAYE in Nigeria with tools for tax deduction, relief computation, and employee tax liability assessment."
+    keywords: ["Nigeria PIT", "PIT Audit", "PAYE", "R Tax Toolkit", "Tax Deduction", "Employee Tax Liability", "Revenue Service", "NHF", "Pension", "Tax Exemption"]
 
-home:
-  title: nigeriaPITaudit
-
-sidebar:
-  structure: [reference, articles]
+navbar:
+  title: "ngPITaudit"
+  structure:
+    left: [getstarted, tutorial, reference, articles, news]
+    right: [search, github, lightswitch]
 
 reference:
   - title: "Key Functions"
@@ -22,6 +29,10 @@ reference:
       - total_relief
       - fetch_tax_data
       - outstanding_liability
+      - fmc2017
+      - rent_relief
+      - sum_cols
+      - tax_exemption
 
 articles:
   - title: "Guide"

@@ -29,13 +29,11 @@ Ensure that R (version 4.0 or higher) and RStudio are installed.
 if (!requireNamespace("devtools", quietly = TRUE)) {
   install.packages("devtools")
 }
-
 ```
 
 ### Install nigeriaPITaudit from GitHub
 ```{r}
 # devtools::install_github("laws2020/nigeriaPITaudit")
-
 ```
 
 
@@ -71,28 +69,24 @@ We retrieve the payroll data hidden in the nigeriaPITaudit archives:
 
 ```{r}
 data("fmc2017")
-
 ```
 
 Before proceeding, let’s inspect the structure of the dataset:
 
 ```{r}
 str(fmc2017)
-
 ```
 
 We now store it in a **data frame** for easy manipulation:
 
 ```{r}
 df <- fmc2017
-
 ```
 
 For the purpose of this examples we will like to limit the number of employee to audit, just 8 instead of the entire data we have here.
 
 ```{r}
 df <- fmc2017[c(1:8), ]
-
 ```
 
 
@@ -104,7 +98,6 @@ To compute **gross salaries**, we use:
 gross <- gross_salary(df$Basic_Salary, df$Teaching_Allowance, df$Salary_Arrears,
                       df$other_allowances, df$Overtime, df$Shifting, df$Specialist,
                       df$Hazard_Allowance)
-
 ```
 
 ### Deductions: Shielding Employees from Tax Burden
@@ -115,7 +108,6 @@ We then calculate key deductions:
 pension <- pension_deduction(gross)
 nhf <- nhf_deduction(df$Basic_Salary)
 nhis <- nhis_deduction(gross)
-
 ```
 
 ### Computing Net Income and Tax Liabilities
@@ -124,21 +116,18 @@ We determine the **gross income**:
 
 ```{r}
 grossIncome <- gross_income(gross, pension, nhis, nhf)
-
 ```
 
 Applying **consolidated relief**:
 
 ```{r}
 consolidatedRelief <- consolidated_relief(grossIncome, "monthly")
-
 ```
 
 Total relief calculation:
 
 ```{r}
 totalRelief <- total_relief(pension, nhis, nhf, consolidatedRelief)
-
 ```
 
 Finally, we compute **taxable income** and **employee tax liability**:
@@ -146,7 +135,6 @@ Finally, we compute **taxable income** and **employee tax liability**:
 ```{r}
 taxableIncome <- taxable_income(gross, totalRelief)
 employeeLiability <- employee_tax_liability(taxableIncome, "monthly")
-
 ```
 
 
@@ -159,25 +147,21 @@ dftaxreport <- data.frame(
   Name = df$Name,  # Explicitly reference df$Name
   gross, pension, nhis, nhf, grossIncome, consolidatedRelief, 
   totalRelief, taxableIncome, employeeLiability
-  
 )
 ```
 
 ```{r}
 columns_to_sum <- c("gross", "pension", "nhis", "nhf", "grossIncome", "consolidatedRelief", "totalRelief", "taxableIncome", "employeeLiability")
-
 ```
 
 ```{r}
 result <- sum_cols(dftaxreport, columns_to_sum)
-
 ```
 
 To summarize records:
 
 ```{r}
 kable(result, caption = "Summary of Personal Income Tax Audit")
-
 ```
 
 
@@ -233,7 +217,7 @@ Submit a Pull Request
 For major changes, please open an issue first to discuss your proposed modifications.
 
 ###  License
-This package is licensed under the MIT License. See the LICENSE file for more details.
+This package is licensed under the GPL License. See the LICENSE file for more details.
 
 ###  Contact
 For support or inquiries:
