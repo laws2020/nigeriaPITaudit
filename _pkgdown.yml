@@ -11,31 +11,16 @@ template:
 navbar:
   title: "ngPITaudit"
   structure:
-    left: [getstarted, tutorial, reference, articles, news]
+    left: [getstarted, tutorial, reference, articles, pitch, news]
     right: [search, github, lightswitch]
 
-reference:
-  - title: "Key Functions"
-    contents:
-      - consolidated_relief
-      - gross_salary
-      - gross_income
-      - nhf_deduction
-      - pension_deduction
-      - penalty_and_interest
-      - nhis_deduction
-      - employee_tax_liability
-      - taxable_income
-      - total_relief
-      - fetch_tax_data
-      - outstanding_liability
-      - fmc2017
-      - rent_relief
-      - sum_cols
-      - tax_exemption
+  components:
+    pitch:
+      text: "Pitch"
+      href: articles/pitch.html
 
 articles:
   - title: "Guide"
     contents:
       - pitguide
-      - pitch
+      - pitch  # still needed here to generate the article!

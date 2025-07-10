@@ -1,0 +1,64 @@
+---
+title: "Transforming PAYE Compliance in Nigeria Through Automated Audit Technology"
+output: rmarkdown::html_document
+vignette: >
+  %\VignetteIndexEntry{Transforming PAYE Compliance in Nigeria Through Automated Audit Technology}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<style>
+h1.title {
+  display: none;
+}
+</style>
+
+
+### Pitch for `nigeriaPITaudit`
+### About nigeriaPITaudit
+  
+`nigeriaPITaudit` is an open-source R package prototype designed to modernize Nigeria’s **Pay-As-You-Earn (PAYE)** tax compliance framework. It enables **automated, data-driven payroll audits** through reproducible workflows. 
+
+This package empowers **tax auditors**, **government agencies**, and **civic tech communities** with **transparent, scriptable tools** to improve audit accuracy and taxpayer compliance.
+
+## The Problem
+  
+Nigeria’s PAYE tax system faces several challenges:
+  
+- Manual, fragmented reporting processes  
+
+- Inefficient audit capabilities leading to errors and delays  
+
+- Revenue leakages and frequent disputes between employers and tax authorities  
+- High compliance costs and significant inconvenience for taxpayers  
+
+These issues undermine public trust, weaken government accountability, and hinder revenue collection.
+
+## Our Solution
+  
+`nigeriaPITaudit` provides:
+  
+- **TRACS**: An R-based audit scripting framework for automated, transparent payroll reviews  
+
+- **TRACSweb** (vision): An intuitive collaborative web interface for tax authorities to easily conduct audits and share results  
+
+- **Digital infrastructure** to drastically reduce employers’ compliance burdens and streamline reporting  
+
+- Tools designed to **foster trust**, promote **audit transparency**, and enable **automation**
+
+## Impact and Funding Request
+  
+Scaling `nigeriaPITaudit` into a full platform will:
+  
+- Improve efficiency, accuracy, and accountability in Nigeria’s PAYE tax system  
+
+- Lower compliance costs and improve convenience for taxpayers  
+
+- Generate jobs for **developers**, **data analysts**, and **tax experts**  
+- Strengthen **fiscal governance** through innovative technology
+
+We seek an initial funding of **₦15,000,000** to develop, pilot, and onboard government and private users. This effort will be supported by the **global R user community** and mentorship from key institutional partners.
+
+
+*Built by [Infosighst Consulting](#) | Powered by R*
+    
